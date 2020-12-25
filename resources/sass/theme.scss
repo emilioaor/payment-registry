@@ -1,0 +1,47 @@
+body {
+    background-color: #f6f6f6;
+}
+
+.navbar {
+    background: linear-gradient(90deg, rgba(84,176,195,1) 30%, rgba(40,98,162,1) 60%);
+}
+
+.navbar-light {
+    .navbar-nav {
+        .nav-link {
+            color: #ffffff;
+            &:hover, &:focus {
+                color: rgba(0,19,29,.8);
+            }
+        }
+
+        .show {
+            .nav-link {
+                color: rgba(0,19,29,.8);
+            }
+        }
+    }
+}
+
+.btn-primary {
+    background-color: rgba(40,98,162,1);
+    border-color: rgba(40,98,162,1);
+}
+
+.techland-payment-login {
+    .card {
+        border: none;
+
+        .card-body {
+            background-color: rgba(0,19,29,.8);
+            padding: 2rem 3rem;
+            border-radius: 5px;
+            color: #ffffff;
+
+            .form-control {
+                height: 45px;
+                border-radius: 5px;
+            }
+        }
+    }
+}
