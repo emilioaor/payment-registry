@@ -16,11 +16,19 @@ class PaymentController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $payments = Payment::query()
+            ->with(['bank'])
+            ->pending()
+            ->search($request->search)
+            ->orderBy('created_at', 'DESC')
+            ->paginate();
+
+        return view('payment.index', compact('payments'));
     }
 
     /**

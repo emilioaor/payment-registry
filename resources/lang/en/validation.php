@@ -147,6 +147,7 @@ return [
     */
 
     'attributes' => [
+        'created_at' => 'Created at',
         'date' => 'Date',
         'payment_date' => 'Payment date',
         'account_holder' => 'Account holder',

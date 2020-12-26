@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\Contract\SearchTrait;
 use App\Contract\UuidGeneratorTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,6 +14,7 @@ class Payment extends Model
 {
     use SoftDeletes;
     use UuidGeneratorTrait;
+    use SearchTrait;
 
     /** Status */
     const STATUS_PENDING = 'pending';
@@ -32,6 +35,13 @@ class Payment extends Model
     ];
 
     protected $dates = ['date'];
+
+    public $search_fields = [
+        'account_holder',
+        'customer_name',
+        'sales_order',
+        'transaction_number'
+    ];
 
     public function __construct(array $attributes = [])
     {
@@ -73,5 +83,16 @@ class Payment extends Model
         Storage::disk('public')->put($path, base64_decode($explode[1]));
 
         return $path;
+    }
+
+    /**
+     * Payments pending
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopePending(Builder $query): Builder
+    {
+        return $query->where('status', self::STATUS_PENDING);
     }
 }

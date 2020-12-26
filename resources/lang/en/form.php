@@ -5,5 +5,8 @@ return [
     'edit' => 'Edit',
     'save' => 'Save',
     'delete' => 'Delete',
-    'payment' => 'Payment'
+    'payment' => 'Payment',
+    'filter' => 'Filter',
+    'total' => 'Total',
+    'filtered_by' => 'Filtered by'
 ];
