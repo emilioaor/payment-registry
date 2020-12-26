@@ -158,7 +158,10 @@ return [
         'bank' => 'Bank',
         'transaction_number' => 'Transaction number',
         'amount' => 'Amount',
-        'capture' => 'Capture'
+        'capture' => 'Capture',
+        'name' => 'Name',
+        'email' => 'Email',
+        'role' => 'Role'
     ],
 
 ];

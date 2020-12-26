@@ -8,7 +8,6 @@
             v-if="typeof item.show === 'undefined' || item.show"
         >
             <a href="" @click.prevent="openDropDown(i)">
-                <i class="fa fa-check-circle" v-if="item.active"></i>
                 {{ item.label }}
                 <i class="fa fa-caret-down ml-3"></i>
             </a>
@@ -16,7 +15,7 @@
             <div class="menu-drop d-flex" :class="{visible: dropVisible === i}">
                 <div class="menu-item" v-for="child in item.children">
                     <a :href="child.route">
-
+                        <i class="fa fa-caret-right"></i>
                         {{ child.label }}
                     </a>
                 </div>

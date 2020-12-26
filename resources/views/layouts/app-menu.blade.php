@@ -31,11 +31,11 @@
                             'show' => Auth::user()->isAdmin(),
                             'children' => [
                                 [
-                                    'route' => route('payment.index'),
+                                    'route' => route('user.create'),
                                     'label' => __('menu.add_new')
                                 ],
                                 [
-                                    'route' => route('payment.index'),
+                                    'route' => route('user.index'),
                                     'label' => __('menu.list')
                                 ]
                             ]

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('payment.create');
+    return redirect()->route('login');
 });
 
 Auth::routes();
@@ -23,3 +23,4 @@ Route::get('translation', 'Controller@translations');
 
 Route::post('payment/exists', 'PaymentController@exists');
 Route::resource('payment', 'PaymentController');
+Route::resource('user', 'UserController')->middleware('admin');

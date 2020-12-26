@@ -12,27 +12,17 @@
             <table class="table table-responsive">
                 <thead>
                     <tr>
-                        <th>{{ t('validation.attributes.created_at') }}</th>
-                        <th>{{ t('validation.attributes.payment_date') }}</th>
-                        <th>{{ t('validation.attributes.bank') }}</th>
-                        <th>{{ t('validation.attributes.account_holder') }}</th>
-                        <th>{{ t('validation.attributes.customer_name') }}</th>
-                        <th class="text-center">{{ t('validation.attributes.sales_order') }}</th>
-                        <th class="text-center">{{ t('validation.attributes.transaction_number') }}</th>
-                        <th width="1%" class="text-center">{{ t('validation.attributes.amount') }}</th>
+                        <th>{{ t('validation.attributes.name') }}</th>
+                        <th>{{ t('validation.attributes.email') }}</th>
+                        <th>{{ t('validation.attributes.role') }}</th>
                         <th width="5%"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="item in items" :key="item.id">
-                        <td>{{ new Date(item.created_at) | date }}</td>
-                        <td>{{ new Date(item.date) | date }}</td>
-                        <td>{{ item.bank.name }}</td>
-                        <td>{{ item.account_holder }}</td>
-                        <td>{{ item.customer_name }}</td>
-                        <td class="text-center">{{ item.sales_order }}</td>
-                        <td class="text-center">{{ item.transaction_number }}</td>
-                        <td class="text-center">{{ item.amount }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.email }}</td>
+                        <td>{{ t('role.' + item.role) }}</td>
                         <td>
                             <a class="btn btn-secondary">
                                 <i class="fa fa-edit"></i>

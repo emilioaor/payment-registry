@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Contract\SearchTrait;
 use App\Contract\UuidGeneratorTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,6 +14,7 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes;
     use UuidGeneratorTrait;
+    use SearchTrait;
 
     /** Roles */
     const ROLE_ADMIN = 'administrator';
@@ -43,6 +45,10 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $search_fields = [
+        'name', 'email'
     ];
 
     /**

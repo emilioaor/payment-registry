@@ -16,15 +16,10 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('date-picker', require('vuejs-datepicker'));
-Vue.component('custom-menu', require('./components/CustomMenu').default);
-Vue.component('table-filter', require('./components/TableFilter').default);
-
-Vue.component('payment-form', require('./components/PaymentForm').default);
-Vue.component('payment-list', require('./components/PaymentList').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
