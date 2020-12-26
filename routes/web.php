@@ -19,4 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('translation', 'Controller@translations');
+
+Route::post('payment/exists', 'PaymentController@exists');
+Route::resource('payment', 'PaymentController');

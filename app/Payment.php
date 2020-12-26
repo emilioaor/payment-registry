@@ -6,6 +6,7 @@ use App\Contract\UuidGeneratorTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Payment extends Model
 {
@@ -23,11 +24,20 @@ class Payment extends Model
         'date',
         'account_holder',
         'amount',
+        'customer_number',
         'customer_name',
         'sales_order',
         'bank_id',
         'transaction_number'
     ];
+
+    protected $dates = ['date'];
+
+    public function __construct(array $attributes = [])
+    {
+        $this->status = self::STATUS_PENDING;
+        parent::__construct($attributes);
+    }
 
     /**
      * Bank
@@ -37,5 +47,31 @@ class Payment extends Model
     public function bank(): BelongsTo
     {
         return $this->belongsTo(Bank::class, 'bank_id')->withTrashed();
+    }
+
+    /**
+     * Attach document to payment
+     *
+     * @param string $base64
+     * @param string $filename
+     * @return string
+     */
+    public function attachDocument(string $base64, string $filename): string
+    {
+        $explode = explode(',', $base64);
+        $filename = sprintf('%s-%s', $filename, ((string) time()));
+
+        if (strpos($explode[0], 'image/png') > 0) {
+            $format = 'png';
+        } elseif (strpos($explode[0], 'image/jpg') > 0 || strpos($explode[0], 'image/jpeg') > 0) {
+            $format = 'jpg';
+        } else {
+            return false;
+        }
+
+        $path = sprintf('payment/%s/%s.%s', $this->uuid, $filename, $format);
+        Storage::disk('public')->put($path, base64_decode($explode[1]));
+
+        return $path;
     }
 }

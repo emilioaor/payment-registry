@@ -146,6 +146,18 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'date' => 'Date',
+        'payment_date' => 'Payment date',
+        'account_holder' => 'Account holder',
+        'customer' => 'Customer',
+        'customer_name' => 'Customer name',
+        'customer_number' => 'Customer number',
+        'sales_order' => 'Sales order',
+        'bank' => 'Bank',
+        'transaction_number' => 'Transaction number',
+        'amount' => 'Amount',
+        'capture' => 'Capture'
+    ],
 
 ];

@@ -1,9 +1,24 @@
+$blue-light: rgba(84,176,195,1);
+$blue-dark:  rgba(40,98,162,1);
+$blue-alt: rgba(0,19,29,.8);
+
 body {
     background-color: #f6f6f6;
 }
 
+.date-picker[readonly] {
+    background-color: #ffffff;
+}
+
 .navbar {
-    background: linear-gradient(90deg, rgba(84,176,195,1) 30%, rgba(40,98,162,1) 60%);
+    background: linear-gradient(90deg, $blue-light 30%, $blue-dark 60%);
+
+    .navbar-brand {
+        max-width: 75%;
+        .logo {
+            width: 100%;
+        }
+    }
 }
 
 .navbar-light {
@@ -24,8 +39,26 @@ body {
 }
 
 .btn-primary {
-    background-color: rgba(40,98,162,1);
-    border-color: rgba(40,98,162,1);
+    background-color: $blue-dark;
+    border-color: $blue-dark;
+}
+
+.techland-form {
+    .card {
+        .card-header {
+            background-color: $blue-alt;
+            color: #ffffff;
+        }
+
+        label {
+            font-weight: bold;
+            color: $blue-alt;
+        }
+
+        .form-control {
+            color: $blue-alt;
+        }
+    }
 }
 
 .techland-payment-login {
@@ -33,7 +66,7 @@ body {
         border: none;
 
         .card-body {
-            background-color: rgba(0,19,29,.8);
+            background-color: $blue-alt;
             padding: 2rem 3rem;
             border-radius: 5px;
             color: #ffffff;

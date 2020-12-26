@@ -19,11 +19,13 @@ class CreatePaymentsTable extends Migration
             $table->timestamp('date');
             $table->string('account_holder');
             $table->float('amount');
+            $table->string('customer_number');
             $table->string('customer_name');
             $table->string('sales_order');
             $table->foreignId('bank_id')->constrained('banks');
             $table->string('transaction_number', 50)->unique();
             $table->enum('status', ['pending', 'refused', 'approved']);
+            $table->string('capture')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
