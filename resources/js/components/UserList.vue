@@ -24,7 +24,7 @@
                         <td>{{ item.email }}</td>
                         <td>{{ t('role.' + item.role) }}</td>
                         <td>
-                            <a class="btn btn-secondary">
+                            <a :href="'/user/' + item.uuid + '/edit'" class="btn btn-secondary">
                                 <i class="fa fa-edit"></i>
                             </a>
                         </td>

@@ -103,7 +103,7 @@ class PaymentController extends Controller
         //
     }
 
-    /**+
+    /**
      * Check if payment exists
      *
      * @param Request $request

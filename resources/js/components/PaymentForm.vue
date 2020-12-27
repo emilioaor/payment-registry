@@ -37,8 +37,8 @@
                                 >
 
                                 <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('account_holder', 'required')">
-                                                <strong>{{ t('validation.required', {attribute: 'account_holder'}) }}</strong>
-                                            </span>
+                                    <strong>{{ t('validation.required', {attribute: 'account_holder'}) }}</strong>
+                                </span>
                             </div>
 
                             <div class="col-sm-6 col-lg-4 form-group">
@@ -55,8 +55,8 @@
                                 >
 
                                 <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('customer_number', 'required')">
-                                                <strong>{{ t('validation.required', {attribute: 'customer_number'}) }}</strong>
-                                            </span>
+                                    <strong>{{ t('validation.required', {attribute: 'customer_number'}) }}</strong>
+                                </span>
                             </div>
 
                             <div class="col-sm-6 col-lg-4 form-group">
@@ -73,8 +73,8 @@
                                 >
 
                                 <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('customer_name', 'required')">
-                                                <strong>{{ t('validation.required', {attribute: 'customer_name'}) }}</strong>
-                                            </span>
+                                    <strong>{{ t('validation.required', {attribute: 'customer_name'}) }}</strong>
+                                </span>
                             </div>
 
                             <div class="col-sm-6 col-lg-4 form-group">
@@ -91,12 +91,12 @@
                                 >
 
                                 <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('sales_order', 'required')">
-                                                <strong>{{ t('validation.required', {attribute: 'sales_order'}) }}</strong>
-                                            </span>
+                                    <strong>{{ t('validation.required', {attribute: 'sales_order'}) }}</strong>
+                                </span>
                             </div>
 
                             <div class="col-sm-6 col-lg-4 form-group">
-                                <label for="bank_id">Bank</label>
+                                <label for="bank_id">{{ t('validation.attributes.bank') }}</label>
                                 <select
                                     name="bank_id"
                                     id="bank_id"
@@ -127,12 +127,12 @@
                                 >
 
                                 <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('transaction_number', 'required')">
-                                                <strong>{{ t('validation.required', {attribute: 'transaction_number'}) }}</strong>
-                                            </span>
+                                    <strong>{{ t('validation.required', {attribute: 'transaction_number'}) }}</strong>
+                                </span>
 
                                 <span class="invalid-feedback" role="alert" v-if="exists">
-                                                <strong>{{ t('validation.unique', {attribute: 'transaction_number'}) }}</strong>
-                                            </span>
+                                    <strong>{{ t('validation.unique', {attribute: 'transaction_number'}) }}</strong>
+                                </span>
                             </div>
 
                             <div class="col-sm-6 col-lg-4 form-group">
@@ -149,12 +149,12 @@
                                 >
 
                                 <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('amount', 'required')">
-                                                <strong>{{ t('validation.required', {attribute: 'amount'}) }}</strong>
-                                            </span>
+                                    <strong>{{ t('validation.required', {attribute: 'amount'}) }}</strong>
+                                </span>
 
                                 <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('amount', 'regex')">
-                                                <strong>{{ t('validation.regex', {attribute: 'amount'}) }}</strong>
-                                            </span>
+                                    <strong>{{ t('validation.regex', {attribute: 'amount'}) }}</strong>
+                                </span>
                             </div>
                         </div>
 
@@ -227,7 +227,6 @@
 
                 ApiService.post('/payment/exists', {transaction_number: this.form.transaction_number})
                     .then(res => {
-                        console.log(res);
                         if (!res.data.data) {
                             this.sendForm();
                         } else {

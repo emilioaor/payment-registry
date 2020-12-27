@@ -17,6 +17,7 @@ class UserController extends Controller
     {
         $users = User::query()
             ->search($request->search)
+            ->notMe()
             ->orderBy('id', 'DESC')
             ->paginate();
 
@@ -30,18 +31,22 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.form');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $user = new User($request->all());
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return response()->json(['success' => true, 'redirect' => route('user.index')]);
     }
 
     /**
@@ -63,19 +68,30 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::query()->uuid($id)->firstOrFail();
+
+        return view('user.form', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::query()->uuid($id)->firstOrFail();
+        $user->fill($request->all());
+
+        if (! empty($request->password)) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
+
+        return response()->json(['success' => true, 'redirect' => route('user.edit', [$id])]);
     }
 
     /**
@@ -87,5 +103,18 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Check if user exists
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function exists(Request $request)
+    {
+        $user = User::query()->where('email', $request->email)->first();
+
+        return response()->json(['success' => true, 'data' => $user]);
     }
 }

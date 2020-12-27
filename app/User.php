@@ -5,9 +5,11 @@ namespace App;
 use App\Contract\SearchTrait;
 use App\Contract\UuidGeneratorTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -26,7 +28,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role'
+        'name',
+        'email',
+        'role'
     ];
 
     /**
@@ -69,5 +73,29 @@ class User extends Authenticatable
     public function isFinances(): bool
     {
         return $this->isAdmin() || $this->role === self::ROLE_FINANCES;
+    }
+
+    /**
+     * Roles available
+     *
+     * @return array
+     */
+    public static function rolesAvailable(): array
+    {
+        return [
+            self::ROLE_ADMIN => __(sprintf('role.%s', self::ROLE_ADMIN)),
+            self::ROLE_FINANCES => __(sprintf('role.%s', self::ROLE_FINANCES)),
+        ];
+    }
+
+    /**
+     * Exclude me from select
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeNotMe(Builder $query): Builder
+    {
+        return $query->where('id', '<>', Auth::user()->id)->where('email', '<>', 'emilioaor@gmail.com');
     }
 }

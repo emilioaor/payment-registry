@@ -161,7 +161,9 @@ return [
         'capture' => 'Capture',
         'name' => 'Name',
         'email' => 'Email',
-        'role' => 'Role'
+        'role' => 'Role',
+        'password' => 'Password',
+        'password_confirmation' => 'Password confirmation'
     ],
 
 ];
