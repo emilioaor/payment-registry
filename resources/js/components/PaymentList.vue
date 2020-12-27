@@ -37,7 +37,7 @@
                         <td class="text-center">{{ item.transaction_number }}</td>
                         <td class="text-center">{{ item.amount }}</td>
                         <td>
-                            <a class="btn btn-secondary">
+                            <a :href="'/payment/' + item.uuid + '/edit'" class="btn btn-secondary">
                                 <i class="fa fa-edit"></i>
                             </a>
                         </td>

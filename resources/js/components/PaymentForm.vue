@@ -2,7 +2,12 @@
     <form class="techland-form" @submit.prevent="validateForm()">
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-plus"></i> {{ t('form.add') }} {{ t('form.payment') }}
+                <div v-if="editData">
+                    <i class="fa fa-plus"></i> {{ t('form.edit') }} {{ t('form.payment') }}
+                </div>
+                <div v-else>
+                    <i class="fa fa-plus"></i> {{ t('form.add') }} {{ t('form.payment') }}
+                </div>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -165,7 +170,11 @@
                         <div class="capture" @click="openImageExplorer()">
                             <input type="file" id="capture" class="d-none" @change="changeImage">
 
-                            <img v-if="form.capture" :src="form.capture" :alt="t('validation.attributes.capture')">
+                            <img
+                                v-if="form.capture"
+                                :src="editData ? '/storage/' + form.capture : form.capture"
+                                :alt="t('validation.attributes.capture')"
+                            >
                             <i v-else class="fa fa-camera"></i>
                         </div>
                     </div>
@@ -195,6 +204,16 @@
             user: {
                 type: Object|null,
                 required: true
+            },
+            editData: {
+                type: Object,
+                required: false
+            }
+        },
+
+        mounted() {
+            if (this.editData) {
+                this.form = {...this.editData};
             }
         },
 
@@ -227,7 +246,7 @@
 
                 ApiService.post('/payment/exists', {transaction_number: this.form.transaction_number})
                     .then(res => {
-                        if (!res.data.data) {
+                        if (!res.data.data || (this.editData && this.editData.uuid === res.data.data.uuid)) {
                             this.sendForm();
                         } else {
                             this.exists = true;
@@ -240,7 +259,12 @@
             },
 
             sendForm() {
-                ApiService.post('/payment', this.form).then(res => {
+                const apiService = this.editData ?
+                    ApiService.put('/payment/' + this.editData.uuid, this.form) :
+                    ApiService.post('/payment', this.form)
+                ;
+
+                apiService.then(res => {
                     if (res.data.success) {
                         location.reload();
                     }
@@ -250,7 +274,13 @@
             },
 
             openImageExplorer() {
-                document.querySelector('#capture').click();
+                if (this.editData) {
+                    if (this.editData.capture) {
+                        window.open('/storage/' + this.editData.capture)
+                    }
+                } else {
+                    document.querySelector('#capture').click();
+                }
             },
 
             changeImage(e) {

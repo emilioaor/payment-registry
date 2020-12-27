@@ -80,19 +80,28 @@ class PaymentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $payment = Payment::query()->uuid($id)->firstOrFail();
+        $banksAvailable = Bank::all();
+
+        return view('payment.form', compact('payment', 'banksAvailable'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $payment = Payment::query()->uuid($id)->firstOrFail();
+        $payment->fill($request->all());
+        $payment->save();
+
+        AlertService::alertSuccess(__('alert.processSuccessfully'));
+
+        return response()->json(['success' => true]);
     }
 
     /**
