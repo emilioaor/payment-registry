@@ -8,5 +8,10 @@ return [
     'payment' => 'Payment',
     'filter' => 'Filter',
     'total' => 'Total',
-    'filtered_by' => 'Filtered by'
+    'filtered_by' => 'Filtered by',
+    'confirm' => 'Confirm',
+    'refuse' => 'Refuse',
+    'areYouSure' => 'Are you sure?',
+    'yes' => 'Yes',
+    'no' => 'No'
 ];

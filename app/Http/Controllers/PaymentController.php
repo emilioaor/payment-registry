@@ -127,4 +127,22 @@ class PaymentController extends Controller
 
         return response()->json(['success' => true, 'data' => $payment]);
     }
+
+    /**
+     * Change status
+     *
+     * @param $id
+     * @param $status
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changeStatus($id, $status)
+    {
+        $payment = Payment::query()->uuid($id)->firstOrFail();
+        $payment->status = $status;
+        $payment->save();
+
+        AlertService::alertSuccess(__('alert.processSuccessfully'));
+
+        return response()->json(['success' => true]);
+    }
 }

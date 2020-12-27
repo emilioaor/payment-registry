@@ -14,6 +14,22 @@
                     <div class="col-md-7 col-lg-9">
 
                         <div class="row">
+                            <div class="col-sm-6 col-lg-4 form-group" v-if="editData">
+                                <label>{{ t('validation.attributes.status') }}</label>
+                                <div>
+                                    <span
+                                        class="text-white p-2 rounded"
+                                        :class="{
+                                            'bg-info': this.editData.status === 'pending',
+                                            'bg-success': this.editData.status === 'approved',
+                                            'bg-danger': this.editData.status === 'refused',
+                                        }"
+                                    >
+                                        {{ t('status.' + this.editData.status) }}
+                                    </span>
+                                </div>
+                            </div>
+
                             <div class="col-sm-6 col-lg-4 form-group">
                                 <label for="date">{{ t('validation.attributes.payment_date') }}</label>
                                 <date-picker
@@ -181,10 +197,52 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button v-if="!loading" class="btn btn-success">
+                <button v-if="!loading && (! editData || editData.status === 'pending')" class="btn btn-success">
                     <i class="fa fa-save"></i>
                     {{ t('form.save') }}
                 </button>
+
+                <button-confirmation
+                    :label="t('form.confirm')"
+                    btn-class="btn btn-primary"
+                    icon-class="fa fa-check"
+                    v-if="!loading && editData && editData.status === 'pending'"
+                    :confirmation="t('form.areYouSure')"
+                    :buttons="[
+                        {
+                            label: t('form.yes'),
+                            btnClass: 'btn btn-success',
+                            code: 'yes'
+                        },
+                        {
+                            label: t('form.no'),
+                            btnClass: 'btn btn-danger',
+                            code: 'no'
+                        }
+                    ]"
+                    @confirmed="changeStatus($event, 'approved')"
+                ></button-confirmation>
+
+                <button-confirmation
+                    :label="t('form.refuse')"
+                    btn-class="btn btn-danger"
+                    icon-class="fa fa-remove"
+                    v-if="!loading && editData && editData.status === 'pending'"
+                    :confirmation="t('form.areYouSure')"
+                    :buttons="[
+                        {
+                            label: t('form.yes'),
+                            btnClass: 'btn btn-success',
+                            code: 'yes'
+                        },
+                        {
+                            label: t('form.no'),
+                            btnClass: 'btn btn-danger',
+                            code: 'no'
+                        }
+                    ]"
+                    @confirmed="changeStatus($event, 'refused')"
+                ></button-confirmation>
 
                 <i v-if="loading" class="spinner-border spinner-border-sm"></i>
             </div>
@@ -271,6 +329,20 @@
                 }).catch(err => {
                     this.loading = false;
                 })
+            },
+
+            changeStatus(code, status) {
+                if (code === 'yes') {
+                    this.loading = true;
+
+                    ApiService.put('/payment/' + this.editData.uuid + '/change-status/' + status, {}).then(res => {
+                        if (res.data.success) {
+                            location.reload();
+                        }
+                    }).catch(err => {
+                        this.loading = false;
+                    })
+                }
             },
 
             openImageExplorer() {

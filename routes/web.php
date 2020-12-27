@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('translation', 'Controller@translations');
 
 Route::post('payment/exists', 'PaymentController@exists');
+Route::put('payment/{payment}/change-status/{status}', 'PaymentController@changeStatus');
 Route::resource('payment', 'PaymentController');
 
 Route::post('user/exists', 'UserController@exists')->middleware('admin');
