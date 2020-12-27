@@ -4,6 +4,7 @@ namespace App;
 
 use App\Contract\SearchTrait;
 use App\Contract\UuidGeneratorTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -60,6 +61,20 @@ class Payment extends Model
     }
 
     /**
+     * Status available
+     *
+     * @return array
+     */
+    public static function statusAvailable(): array
+    {
+        return [
+            self::STATUS_PENDING => __('status.' . self::STATUS_PENDING),
+            self::STATUS_APPROVED => __('status.' . self::STATUS_APPROVED),
+            self::STATUS_REFUSED => __('status.' . self::STATUS_REFUSED)
+        ];
+    }
+
+    /**
      * Attach document to payment
      *
      * @param string $base64
@@ -94,5 +109,51 @@ class Payment extends Model
     public function scopePending(Builder $query): Builder
     {
         return $query->where('status', self::STATUS_PENDING);
+    }
+
+    /**
+     * Payments report
+     *
+     * @param Builder $query
+     * @param array $params
+     * @return Builder
+     * @throws \Exception
+     */
+    public function scopeReport(Builder $query, array $params): Builder
+    {
+        $start = new Carbon($params['start']);
+        $end = new Carbon($params['end']);
+
+        $query
+            ->with(['bank'])
+            ->whereBetween('date', [$start, $end])
+            ->orderBy('date', 'DESC')
+        ;
+
+        if ($params['bank_id']) {
+            $query->where('bank_id', $params['bank_id']);
+        }
+
+        if ($params['status']) {
+            $query->where('status', $params['status']);
+        }
+
+        if ($params['sales_order']) {
+            $query->where('sales_order',  $params['sales_order']);
+        }
+
+        if ($params['transaction_number']) {
+            $query->where('transaction_number', $params['transaction_number']);
+        }
+
+        if ($params['account_holder']) {
+            $query->whereRaw(sprintf('lower(account_holder) LIKE \'%%%s%%\'', strtolower($params['account_holder'])));
+        }
+
+        if ($params['customer_name']) {
+            $query->whereRaw(sprintf('lower(customer_name) LIKE \'%%%s%%\'', strtolower($params['customer_name'])));
+        }
+
+        return $query;
     }
 }

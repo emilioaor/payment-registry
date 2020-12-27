@@ -15,7 +15,6 @@
             <table class="table table-responsive">
                 <thead>
                     <tr>
-                        <th>{{ t('validation.attributes.created_at') }}</th>
                         <th>{{ t('validation.attributes.payment_date') }}</th>
                         <th>{{ t('validation.attributes.bank') }}</th>
                         <th>{{ t('validation.attributes.account_holder') }}</th>
@@ -28,7 +27,6 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in items" :key="item.id">
-                        <td>{{ new Date(item.created_at) | date }}</td>
                         <td>{{ new Date(item.date) | date }}</td>
                         <td>{{ item.bank.name }}</td>
                         <td>{{ item.account_holder }}</td>

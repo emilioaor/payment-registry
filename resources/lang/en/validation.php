@@ -167,7 +167,9 @@ return [
         'currentPassword' => 'Current password',
         'newPassword' => 'New password',
         'newPasswordConfirmation' => 'New password confirmation',
-        'status' => 'Status'
+        'status' => 'Status',
+        'start_date' => 'Start date',
+        'end_date' => 'End date'
     ],
 
 ];

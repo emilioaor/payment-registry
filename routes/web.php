@@ -23,6 +23,8 @@ Route::get('translation', 'Controller@translations');
 
 Route::post('payment/exists', 'PaymentController@exists');
 Route::put('payment/{payment}/change-status/{status}', 'PaymentController@changeStatus');
+Route::get('payment/report', 'PaymentController@report')->name('payment.report');
+Route::post('payment/report', 'PaymentController@reportProcess');
 Route::resource('payment', 'PaymentController');
 
 Route::post('user/exists', 'UserController@exists')->middleware('admin');

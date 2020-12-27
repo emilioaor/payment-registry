@@ -145,4 +145,29 @@ class PaymentController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    /**
+     * Report
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function report()
+    {
+        $banksAvailable = Bank::all();
+
+        return view('payment.report', compact('banksAvailable'));
+    }
+
+    /**
+     * Report process
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function reportProcess(Request $request)
+    {
+        $payments = Payment::query()->report($request->all())->get();
+
+        return response()->json(['success' => true, 'data' => $payments]);
+    }
 }

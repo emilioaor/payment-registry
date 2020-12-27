@@ -204,7 +204,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer" v-if="!editData || editData.status === 'pending'">
                 <button v-if="!loading && (! editData || editData.status === 'pending')" class="btn btn-success">
                     <i class="fa fa-save"></i>
                     {{ t('form.save') }}

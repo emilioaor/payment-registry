@@ -13,5 +13,7 @@ return [
     'refuse' => 'Refuse',
     'areYouSure' => 'Are you sure?',
     'yes' => 'Yes',
-    'no' => 'No'
+    'no' => 'No',
+    'report' => 'Report',
+    'all' => 'All'
 ];

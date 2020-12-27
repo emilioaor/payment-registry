@@ -103,7 +103,7 @@
                                             'label' => __('menu.list')
                                         ],
                                         [
-                                            'route' => route('payment.index'),
+                                            'route' => route('payment.report'),
                                             'label' => __('menu.report')
                                         ]
                                     ]
