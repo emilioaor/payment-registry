@@ -163,7 +163,10 @@ return [
         'email' => 'Email',
         'role' => 'Role',
         'password' => 'Password',
-        'password_confirmation' => 'Password confirmation'
+        'password_confirmation' => 'Password confirmation',
+        'currentPassword' => 'Current password',
+        'newPassword' => 'New password',
+        'newPasswordConfirmation' => 'New password confirmation',
     ],
 
 ];

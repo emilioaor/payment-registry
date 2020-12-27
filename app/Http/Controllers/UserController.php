@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Service\AlertService;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserController extends Controller
 {
@@ -121,5 +124,39 @@ class UserController extends Controller
         $user = User::query()->where('email', $request->email)->first();
 
         return response()->json(['success' => true, 'data' => $user]);
+    }
+
+    /**
+     * Configuration
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function config()
+    {
+        return view('user.config');
+    }
+
+    /**
+     * Update config
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateConfig(Request $request)
+    {
+        $user = Auth::user();
+
+        if (! Hash::check($request->current_password, $user->getAuthPassword())) {
+            AlertService::alertFail(__('alert.invalidCurrentPassword'));
+
+            return response()->json(['success' => false, 'code' => 'invalid_password'], 400);
+        }
+
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        AlertService::alertSuccess(__('alert.processSuccessfully'));
+
+        return response()->json(['success' => true, 'redirect' => route('user.config')]);
     }
 }

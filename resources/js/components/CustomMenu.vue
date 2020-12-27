@@ -50,7 +50,7 @@
 
             <div class="menu-drop d-flex" :class="{visible: dropVisible === 'session'}">
                 <div class="menu-item">
-                    <a :href="''"  @click="loading('session')">
+                    <a :href="'/user/config'"  @click="loading('session')">
                         <i class="fa fa-caret-right"></i>
                         {{ t('menu.security') }}
                     </a>
