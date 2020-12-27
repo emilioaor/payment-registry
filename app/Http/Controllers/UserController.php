@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Service\AlertService;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -45,6 +46,8 @@ class UserController extends Controller
         $user = new User($request->all());
         $user->password = bcrypt($request->password);
         $user->save();
+
+        AlertService::alertSuccess(__('alert.processSuccessfully'));
 
         return response()->json(['success' => true, 'redirect' => route('user.index')]);
     }
@@ -90,6 +93,8 @@ class UserController extends Controller
         }
 
         $user->save();
+
+        AlertService::alertSuccess(__('alert.processSuccessfully'));
 
         return response()->json(['success' => true, 'redirect' => route('user.edit', [$id])]);
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bank;
 use App\Payment;
+use App\Service\AlertService;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -54,6 +55,8 @@ class PaymentController extends Controller
         $payment = new Payment($request->all());
         $payment->capture = $request->capture ? $payment->attachDocument($request->capture, 'capture') : null;
         $payment->save();
+
+        AlertService::alertSuccess(__('alert.processSuccessfully'));
 
         return response()->json(['success' => true]);
     }

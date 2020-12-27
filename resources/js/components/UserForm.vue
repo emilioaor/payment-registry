@@ -1,6 +1,14 @@
 <template>
     <form class="techland-form" @submit.prevent="validateForm()">
         <div class="card">
+            <div class="card-header">
+                <div v-if="editData">
+                    <i class="fa fa-edit"></i> {{ t('form.edit') }} {{ t('menu.users') }}
+                </div>
+                <div v-else>
+                    <i class="fa fa-plus"></i> {{ t('form.add') }} {{ t('menu.users') }}
+                </div>
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6 col-lg-4 form-group">

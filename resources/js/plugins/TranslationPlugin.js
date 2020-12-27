@@ -54,15 +54,22 @@ const TranslationPlugin = {
                 getTranslations() {
                     if (typeof window.TranslationPlugin === 'undefined') {
                         window.TranslationPlugin = {
-                            translations: []
+                            translations: [],
+                            backend: false
                         };
 
                         axios.get('/translation').then(res => {
-                            window.TranslationPlugin.translations = res.data;
                             this.translations = res.data;
+                            window.TranslationPlugin.translations = res.data;
+                            window.TranslationPlugin.backend = true;
                         });
                     } else {
-                        this.translations = window.TranslationPlugin.translations;
+
+                        if (window.TranslationPlugin.backend) {
+                            this.translations = window.TranslationPlugin.translations;
+                        } else {
+                            window.setTimeout(() => this.getTranslations(), 200);
+                        }
                     }
                 }
             },

@@ -12,6 +12,7 @@ body {
 
 .navbar {
     background: linear-gradient(90deg, $blue-light 30%, $blue-dark 60%);
+    height: 82px;
 
     .navbar-brand {
         max-width: 75%;
@@ -62,6 +63,11 @@ body {
 }
 
 .techland-list {
+    .card-header {
+        background-color: $blue-alt;
+        color: #ffffff;
+    }
+
     .table {
         color: $blue-alt;
     }
@@ -104,19 +110,23 @@ body {
         position: relative;
 
         .menu-item {
-            width: 10%;
             min-width: 180px;
             text-align: center;
             cursor: pointer;
             border-right: solid 1px #fff;
-            &:first-of-type {
-                border-radius: 0.25rem 0 0 0;
+            &.logo {
+                img {
+                    max-height: 37px;
+                }
+                a {
+                    padding: .3rem;
+                }
             }
             &:hover {
                 //background-color: rgba(0,19,29,.4);
             }
             &.active {
-                background-color: $blue-light;
+                background-color: #4b8f9f;
             }
 
             a {
@@ -134,7 +144,7 @@ body {
         .menu-drop {
             display: none !important;
             position: absolute;
-            background-color: $blue-light;
+            background-color: #4b8f9f;
             z-index: 10;
             left: 0;
             width: 100%;
@@ -147,9 +157,79 @@ body {
                 border: none;
             }
         }
+
+
+        .button-mobile {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .button-mobile {
+                display: block;
+                position: absolute;
+                top: .5rem;
+                right: .8rem;
+                width: 40px;
+                font-size: 20px;
+                background-color: #33424a;
+                color: #ffffff;
+                border-color: #fff;
+                border-radius: .25rem;
+            }
+            .menu-mobile {
+                display: none;
+                &.show-mobile {
+                    display: block;
+                }
+            }
+        }
     }
 
     .card {
         border-radius: 0 0 0.25rem 0.25rem ;
+    }
+    #menu-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+        background-color: rgb(51 66 74);
+        border-radius: 0;
+    }
+    @media (max-width: 768px) {
+
+
+        #menu-item {
+            flex-wrap: wrap;
+
+            .menu-item {
+                width: 100%;
+                min-width: auto;
+                text-align: left;
+
+                &.active {
+                    background-color: transparent;
+                }
+
+                a {
+                    padding: 0.75rem 1rem;
+                }
+            }
+
+            .menu-drop {
+                position: static;
+
+                &.visible {
+                    flex-wrap: wrap;
+                }
+            }
+        }
+    }
+}
+
+.main-auth {
+    margin-top: 5rem;
+    @media (max-width: 768px) {
+        margin-top: 4rem;
     }
 }

@@ -1,8 +1,8 @@
 <template>
     <form class="techland-form" @submit.prevent="validateForm()">
         <div class="card">
-            <div class="card-header" v-if="! user">
-                <i class="fa fa-usd"></i> {{ t('form.add') }} {{ t('form.payment') }}
+            <div class="card-header">
+                <i class="fa fa-plus"></i> {{ t('form.add') }} {{ t('form.payment') }}
             </div>
             <div class="card-body">
                 <div class="row">

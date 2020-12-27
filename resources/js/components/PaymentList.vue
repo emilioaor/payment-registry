@@ -1,5 +1,8 @@
 <template>
     <div class="card techland-list">
+        <div class="card-header">
+            <i class="fa fa-list"></i> {{ t('menu.payments') }}
+        </div>
         <div class="card-body">
             <table-filter>
                 <template v-slot:total v-if="total">

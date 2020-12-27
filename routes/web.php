@@ -24,5 +24,5 @@ Route::get('translation', 'Controller@translations');
 Route::post('payment/exists', 'PaymentController@exists');
 Route::resource('payment', 'PaymentController');
 
-Route::post('user/exists', 'UserController@exists');
+Route::post('user/exists', 'UserController@exists')->middleware('admin');
 Route::resource('user', 'UserController')->middleware('admin');

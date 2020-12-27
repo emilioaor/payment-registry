@@ -1,22 +1,65 @@
 <template>
-    <div class="d-flex" id="menu-item" @focusout="focusOut()">
+    <div class="d-flex w-100" id="menu-item" @focusout="focusOut()">
+        <!-- Logo -->
+        <div class="menu-item logo">
+            <a href="/">
+                <img class="logo" src="/images/logo.png" alt="logo">
+            </a>
+        </div>
+
+        <!-- Button mobile -->
+        <button type="button" class="button-mobile" @click="showMobile = !showMobile">
+            <i v-if="showMobile" class="fa fa-caret-up"></i>
+            <i v-else class="fa fa-caret-down"></i>
+        </button>
+
+        <!-- General menu -->
         <div
             v-for="(item, i) in menu"
             :key="i"
-            class="menu-item"
-            :class="{active: dropVisible === i}"
+            class="menu-item menu-mobile"
+            :class="{active: dropVisible === i, 'show-mobile': showMobile}"
             v-if="typeof item.show === 'undefined' || item.show"
         >
             <a href="" @click.prevent="openDropDown(i)">
                 {{ item.label }}
-                <i class="fa fa-caret-down ml-3"></i>
+
+                <i v-if="menuLoading === i" class="spinner-border spinner-border-sm ml-3"></i>
+                <i v-else-if="dropVisible === i" class="fa fa-caret-up ml-3"></i>
+                <i v-else class="fa fa-caret-down ml-3"></i>
             </a>
 
             <div class="menu-drop d-flex" :class="{visible: dropVisible === i}">
                 <div class="menu-item" v-for="child in item.children">
-                    <a :href="child.route">
+                    <a :href="child.route" @click="loading(i)">
                         <i class="fa fa-caret-right"></i>
                         {{ child.label }}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session -->
+        <div class="menu-item menu-mobile" :class="{active: dropVisible === 'session', 'show-mobile': showMobile}">
+            <a href="" @click.prevent="openDropDown('session')">
+                {{ user.name }}
+                <i v-if="menuLoading === 'session'" class="spinner-border spinner-border-sm ml-3"></i>
+                <i v-else-if="dropVisible === 'session'" class="fa fa-caret-up ml-3"></i>
+                <i v-else class="fa fa-caret-down ml-3"></i>
+            </a>
+
+            <div class="menu-drop d-flex" :class="{visible: dropVisible === 'session'}">
+                <div class="menu-item">
+                    <a :href="''"  @click="loading('session')">
+                        <i class="fa fa-caret-right"></i>
+                        {{ t('menu.security') }}
+                    </a>
+                </div>
+
+                <div class="menu-item">
+                    <a href="" @click.prevent="logout()">
+                        <i class="fa fa-caret-right"></i>
+                        {{ t('menu.logout') }}
                     </a>
                 </div>
             </div>
@@ -30,12 +73,19 @@
             menu: {
                 type: Array,
                 required: true
+            },
+
+            user: {
+                type: Object,
+                required: true
             }
         },
 
         data() {
             return {
-                dropVisible: null
+                dropVisible: null,
+                menuLoading: null,
+                showMobile: false
             }
         },
 
@@ -60,6 +110,15 @@
                         this.closeDropDown();
                     }
                 }, 300);
+            },
+
+            loading(index) {
+                this.menuLoading = index;
+            },
+
+            logout() {
+                this.loading('session');
+                document.getElementById('logout-form').submit();
             }
         }
     }
