@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    @php($currentController = get_class(Route::current()->getController()))
-    <div class="container techland-menu">
+    <!-- Menu header -->
+    <div class="techland-menu">
         @auth
+            @php($currentController = get_class(Route::current()->getController()))
             <div id="menu-header" class="menu-header">
                 @include('layouts.menu', [
                     'menu' => [
@@ -44,6 +45,10 @@
                 ])
             </div>
         @endauth
+    </div>
+
+    <!-- Content -->
+    <div class="container">
         <div>
             @yield('main')
         </div>
