@@ -40,7 +40,8 @@
                                     format = "dd/MM/yyyy"
                                     v-model="date"
                                     @input="form.date = $event"
-
+                                    :disabled-picker="editData && editData.status !== 'pending'"
+                                    :disabled="{from: new Date()}"
                                 ></date-picker>
                             </div>
 
@@ -55,6 +56,7 @@
                                     v-model="form.account_holder"
                                     v-validate
                                     data-vv-rules="required"
+                                    :readonly="editData && editData.status !== 'pending'"
                                 >
 
                                 <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('account_holder', 'required')">
@@ -73,6 +75,7 @@
                                     v-model="form.customer_number"
                                     v-validate
                                     data-vv-rules="required"
+                                    :readonly="editData && editData.status !== 'pending'"
                                 >
 
                                 <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('customer_number', 'required')">
@@ -91,6 +94,7 @@
                                     v-model="form.customer_name"
                                     v-validate
                                     data-vv-rules="required"
+                                    :readonly="editData && editData.status !== 'pending'"
                                 >
 
                                 <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('customer_name', 'required')">
@@ -109,6 +113,7 @@
                                     v-model="form.sales_order"
                                     v-validate
                                     data-vv-rules="required"
+                                    :readonly="editData && editData.status !== 'pending'"
                                 >
 
                                 <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('sales_order', 'required')">
@@ -123,6 +128,7 @@
                                     id="bank_id"
                                     class="form-control"
                                     v-model="form.bank_id"
+                                    :readonly="editData && editData.status !== 'pending'"
                                 >
                                     <option
                                         v-for="bank in banksAvailable"
@@ -145,6 +151,7 @@
                                     v-model="form.transaction_number"
                                     v-validate
                                     data-vv-rules="required"
+                                    :readonly="editData && editData.status !== 'pending'"
                                 >
 
                                 <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('transaction_number', 'required')">
@@ -167,6 +174,7 @@
                                     v-model="form.amount"
                                     v-validate
                                     data-vv-rules="required|regex:^[0-9]+(\.[0-9]+)?$"
+                                    :readonly="editData && editData.status !== 'pending'"
                                 >
 
                                 <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('amount', 'required')">

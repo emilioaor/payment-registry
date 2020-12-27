@@ -58,6 +58,10 @@ body {
 
         .form-control {
             color: $blue-alt;
+
+            &[readonly] {
+                background-color: #ffffff;
+            }
         }
     }
 }
