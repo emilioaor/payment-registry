@@ -42,7 +42,7 @@ Vue.mixin({
             let month = ((date.getMonth() + 1) < 10) ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
             let year = date.getFullYear();
 
-            response = day + '-' + month + '-' + year;
+            response = month + '/' + day  + '/' + year;
 
             if (time) {
                 let meridiam = 'AM';

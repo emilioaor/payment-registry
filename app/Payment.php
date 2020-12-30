@@ -22,6 +22,13 @@ class Payment extends Model
     const STATUS_REFUSED = 'refused';
     const STATUS_APPROVED = 'approved';
 
+    /** Types */
+    const TYPE_ACH = 'ach';
+    const TYPE_DEPOSIT = 'deposit';
+    const TYPE_CHECK = 'check';
+    const TYPE_TRANSFER = 'transfer';
+    const TYPE_PAYPAL = 'paypal';
+
     protected $table = 'payments';
 
     protected $fillable = [
@@ -32,7 +39,11 @@ class Payment extends Model
         'customer_name',
         'sales_order',
         'bank_id',
-        'transaction_number'
+        'transaction_number',
+        'type',
+        'customer_comment',
+        'techland_comment',
+        'confirmation_number'
     ];
 
     protected $dates = ['date'];
@@ -61,6 +72,16 @@ class Payment extends Model
     }
 
     /**
+     * Status changed by
+     *
+     * @return BelongsTo
+     */
+    public function statusChangedBy()
+    {
+        return $this->belongsTo(User::class, 'status_changed_by')->withTrashed();
+    }
+
+    /**
      * Status available
      *
      * @return array
@@ -71,6 +92,22 @@ class Payment extends Model
             self::STATUS_PENDING => __('status.' . self::STATUS_PENDING),
             self::STATUS_APPROVED => __('status.' . self::STATUS_APPROVED),
             self::STATUS_REFUSED => __('status.' . self::STATUS_REFUSED)
+        ];
+    }
+
+    /**
+     * Payment types available
+     *
+     * @return array
+     */
+    public static function paymentTypesAvailable(): array
+    {
+        return [
+            self::TYPE_ACH => __('payment_type.' . self::TYPE_ACH),
+            self::TYPE_CHECK => __('payment_type.' . self::TYPE_CHECK),
+            self::TYPE_DEPOSIT => __('payment_type.' . self::TYPE_DEPOSIT),
+            self::TYPE_TRANSFER => __('payment_type.' . self::TYPE_TRANSFER),
+            self::TYPE_PAYPAL => __('payment_type.' . self::TYPE_PAYPAL)
         ];
     }
 
@@ -125,7 +162,7 @@ class Payment extends Model
         $end = new Carbon($params['end']);
 
         $query
-            ->with(['bank'])
+            ->with(['bank', 'statusChangedBy'])
             ->whereBetween('date', [$start, $end])
             ->orderBy('date', 'DESC')
         ;

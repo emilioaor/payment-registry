@@ -128,8 +128,8 @@
                             <th>{{ t('validation.attributes.account_holder') }}</th>
                             <th>{{ t('validation.attributes.customer_name') }}</th>
                             <th class="text-center">{{ t('validation.attributes.sales_order') }}</th>
-                            <th class="text-center">{{ t('validation.attributes.transaction_number') }}</th>
                             <th class="text-center">{{ t('validation.attributes.amount') }}</th>
+                            <th class="text-center" v-if="user.role === 'administrator'">{{ t('validation.attributes.status_changed_by') }}</th>
                             <th class="text-center">{{ t('validation.attributes.status') }}</th>
                             <th width="5%"></th>
                         </tr>
@@ -141,8 +141,10 @@
                             <td>{{ result.account_holder }}</td>
                             <td>{{ result.customer_name }}</td>
                             <td class="text-center">{{ result.sales_order }}</td>
-                            <td class="text-center">{{ result.transaction_number }}</td>
                             <td class="text-center">{{ result.amount }}</td>
+                            <td class="text-center" v-if="user.role === 'administrator'">
+                                {{ result.status_changed_by ? result.status_changed_by.name : '' }}
+                            </td>
                             <td class="text-center">
                                 <span
                                     class="text-white p-2 rounded"
@@ -179,6 +181,10 @@
             },
             banksAvailable: {
                 type: Array,
+                required: true
+            },
+            user: {
+                type: Object,
                 required: true
             }
         },

@@ -151,10 +151,12 @@ return [
         'date' => 'Date',
         'payment_date' => 'Payment date',
         'account_holder' => 'Account holder',
+        'account_holder_name' => 'Account holder name',
         'customer' => 'Customer',
         'customer_name' => 'Customer name',
         'customer_number' => 'Customer number',
         'sales_order' => 'Sales order',
+        'sales_order_or_invoice' => 'Sales order or invoice',
         'bank' => 'Bank',
         'transaction_number' => 'Transaction number',
         'amount' => 'Amount',
@@ -169,7 +171,11 @@ return [
         'newPasswordConfirmation' => 'New password confirmation',
         'status' => 'Status',
         'start_date' => 'Start date',
-        'end_date' => 'End date'
+        'end_date' => 'End date',
+        'payment_type' => 'Payment type',
+        'comments' => 'Comments',
+        'confirmation_number' => 'Confirmation number',
+        'status_changed_by' => 'Status changed by'
     ],
 
 ];

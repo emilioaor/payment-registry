@@ -6,6 +6,7 @@ use App\Bank;
 use App\Payment;
 use App\Service\AlertService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -123,7 +124,10 @@ class PaymentController extends Controller
      */
     public function exists(Request $request)
     {
-        $payment = Payment::query()->where('transaction_number', $request->transaction_number)->first();
+        $payment = Payment::query()
+            ->where($request->field, $request->value)
+            ->whereNotNull($request->field)
+            ->first();
 
         return response()->json(['success' => true, 'data' => $payment]);
     }
@@ -131,14 +135,17 @@ class PaymentController extends Controller
     /**
      * Change status
      *
+     * @param Request $request
      * @param $id
      * @param $status
      * @return \Illuminate\Http\JsonResponse
      */
-    public function changeStatus($id, $status)
+    public function changeStatus(Request $request, $id, $status)
     {
         $payment = Payment::query()->uuid($id)->firstOrFail();
         $payment->status = $status;
+        $payment->confirmation_number = $request->confirmation_number;
+        $payment->status_changed_by = Auth::user()->id;
         $payment->save();
 
         AlertService::alertSuccess(__('alert.processSuccessfully'));

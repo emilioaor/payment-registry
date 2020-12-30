@@ -76,6 +76,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Status changed payment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function statusChangedPayments()
+    {
+        return $this->hasMany(Payment::class, 'status_changed_by');
+    }
+
+    /**
      * Roles available
      *
      * @return array

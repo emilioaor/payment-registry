@@ -10,186 +10,215 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-7 col-lg-9">
-
-                        <div class="row">
-                            <div class="col-sm-6 col-lg-4 form-group" v-if="editData">
-                                <label>{{ t('validation.attributes.status') }}</label>
-                                <div>
-                                    <span
-                                        class="text-white p-2 rounded"
-                                        :class="{
-                                            'bg-info': this.editData.status === 'pending',
-                                            'bg-success': this.editData.status === 'approved',
-                                            'bg-danger': this.editData.status === 'refused',
-                                        }"
-                                    >
-                                        {{ t('status.' + this.editData.status) }}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 col-lg-4 form-group">
-                                <label for="date">{{ t('validation.attributes.payment_date') }}</label>
-                                <date-picker
-                                    name = "date"
-                                    id = "date"
-                                    language="en"
-                                    input-class = "form-control date-picker"
-                                    format = "dd/MM/yyyy"
-                                    v-model="date"
-                                    @input="form.date = $event"
-                                    :disabled-picker="editData && editData.status !== 'pending'"
-                                    :disabled="{from: new Date()}"
-                                ></date-picker>
-                            </div>
-
-                            <div class="col-sm-6 col-lg-4 form-group">
-                                <label for="account_holder">{{ t('validation.attributes.account_holder') }}</label>
-                                <input
-                                    type="text"
-                                    id="account_holder"
-                                    name="account_holder"
-                                    class="form-control"
-                                    :class="{'is-invalid': errors.has('account_holder')}"
-                                    v-model="form.account_holder"
-                                    v-validate
-                                    data-vv-rules="required"
-                                    :readonly="editData && editData.status !== 'pending'"
-                                >
-
-                                <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('account_holder', 'required')">
-                                    <strong>{{ t('validation.required', {attribute: 'account_holder'}) }}</strong>
-                                </span>
-                            </div>
-
-                            <div class="col-sm-6 col-lg-4 form-group">
-                                <label for="customer_number">{{ t('validation.attributes.customer_number') }}</label>
-                                <input
-                                    type="text"
-                                    id="customer_number"
-                                    name="customer_number"
-                                    class="form-control"
-                                    :class="{'is-invalid': errors.has('customer_number')}"
-                                    v-model="form.customer_number"
-                                    v-validate
-                                    data-vv-rules="required"
-                                    :readonly="editData && editData.status !== 'pending'"
-                                >
-
-                                <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('customer_number', 'required')">
-                                    <strong>{{ t('validation.required', {attribute: 'customer_number'}) }}</strong>
-                                </span>
-                            </div>
-
-                            <div class="col-sm-6 col-lg-4 form-group">
-                                <label for="customer_name">{{ t('validation.attributes.customer_name') }}</label>
-                                <input
-                                    type="text"
-                                    id="customer_name"
-                                    name="customer_name"
-                                    class="form-control"
-                                    :class="{'is-invalid': errors.has('customer_name')}"
-                                    v-model="form.customer_name"
-                                    v-validate
-                                    data-vv-rules="required"
-                                    :readonly="editData && editData.status !== 'pending'"
-                                >
-
-                                <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('customer_name', 'required')">
-                                    <strong>{{ t('validation.required', {attribute: 'customer_name'}) }}</strong>
-                                </span>
-                            </div>
-
-                            <div class="col-sm-6 col-lg-4 form-group">
-                                <label for="sales_order">{{ t('validation.attributes.sales_order') }}</label>
-                                <input
-                                    type="text"
-                                    id="sales_order"
-                                    name="sales_order"
-                                    class="form-control"
-                                    :class="{'is-invalid': errors.has('sales_order')}"
-                                    v-model="form.sales_order"
-                                    v-validate
-                                    data-vv-rules="required"
-                                    :readonly="editData && editData.status !== 'pending'"
-                                >
-
-                                <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('sales_order', 'required')">
-                                    <strong>{{ t('validation.required', {attribute: 'sales_order'}) }}</strong>
-                                </span>
-                            </div>
-
-                            <div class="col-sm-6 col-lg-4 form-group">
-                                <label for="bank_id">{{ t('validation.attributes.bank') }}</label>
-                                <select
-                                    name="bank_id"
-                                    id="bank_id"
-                                    class="form-control"
-                                    v-model="form.bank_id"
-                                    :readonly="editData && editData.status !== 'pending'"
-                                >
-                                    <option
-                                        v-for="bank in banksAvailable"
-                                        :key="bank.id"
-                                        :value="bank.id">
-                                        {{ bank.name }}
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div class="col-sm-6 col-lg-4 form-group">
-                                <label for="transaction_number">{{ t('validation.attributes.transaction_number') }}</label>
-                                <input
-                                    type="text"
-                                    id="transaction_number"
-                                    name="transaction_number"
-                                    class="form-control"
-                                    :class="{'is-invalid': errors.has('transaction_number') || exists}"
-                                    @keypress="exists = false"
-                                    v-model="form.transaction_number"
-                                    v-validate
-                                    data-vv-rules="required"
-                                    :readonly="editData && editData.status !== 'pending'"
-                                >
-
-                                <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('transaction_number', 'required')">
-                                    <strong>{{ t('validation.required', {attribute: 'transaction_number'}) }}</strong>
-                                </span>
-
-                                <span class="invalid-feedback" role="alert" v-if="exists">
-                                    <strong>{{ t('validation.unique', {attribute: 'transaction_number'}) }}</strong>
-                                </span>
-                            </div>
-
-                            <div class="col-sm-6 col-lg-4 form-group">
-                                <label for="amount">{{ t('validation.attributes.amount') }} (USD)</label>
-                                <input
-                                    type="text"
-                                    id="amount"
-                                    name="amount"
-                                    class="form-control"
-                                    :class="{'is-invalid': errors.has('amount')}"
-                                    v-model="form.amount"
-                                    v-validate
-                                    data-vv-rules="required|regex:^[0-9]+(\.[0-9]+)?$"
-                                    :readonly="editData && editData.status !== 'pending'"
-                                >
-
-                                <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('amount', 'required')">
-                                    <strong>{{ t('validation.required', {attribute: 'amount'}) }}</strong>
-                                </span>
-
-                                <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('amount', 'regex')">
-                                    <strong>{{ t('validation.regex', {attribute: 'amount'}) }}</strong>
-                                </span>
-                            </div>
-                        </div>
-
+                <div class="row" v-if="editData">
+                    <div class="col-sm-6 col-lg-3 form-group">
+                        <label>{{ t('validation.attributes.created_at') }}:</label>
+                        {{ editData.created_at | date }}
                     </div>
 
-                    <div class="col-md-5 col-lg-3 form-group">
+                    <div class="col-sm-6 col-lg-3 form-group">
+                        <label>{{ t('validation.attributes.status') }}:</label>
+                        <span
+                            class="text-white p-2 rounded"
+                            :class="{
+                                    'bg-info': this.editData.status === 'pending',
+                                    'bg-success': this.editData.status === 'approved',
+                                    'bg-danger': this.editData.status === 'refused',
+                                }"
+                        >
+                                {{ t('status.' + this.editData.status) }}
+                            </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-lg-3 form-group">
+                        <label for="date_picker">{{ t('validation.attributes.payment_date') }}</label>
+                        <date-picker
+                            name = "date_picker"
+                            id = "date_picker"
+                            language="en"
+                            :input-class = "{'d-none': !form.date, 'form-control date-picker': true}"
+                            format = "MM/dd/yyyy"
+                            v-model="date"
+                            @input="form.date = $event"
+                            :disabled-picker="editData && editData.status !== 'pending'"
+                            :disabled="{from: new Date()}"
+                            ref="datePicker"
+                        ></date-picker>
+
+                        <input
+                            type="text"
+                            v-show="! form.date"
+                            id="date"
+                            name="date"
+                            class="form-control"
+                            :class="{'is-invalid': errors.has('date')}"
+                            @click="$refs.datePicker.showCalendar()"
+                            v-model="form.date"
+                            readonly
+                            v-validate
+                            data-vv-rules="required"
+                        >
+
+                        <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('date', 'required')">
+                            <strong>{{ t('validation.required', {attribute: 'date'}) }}</strong>
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 form-group">
+                        <label for="account_holder">{{ t('validation.attributes.account_holder_name') }}</label>
+                        <input
+                            type="text"
+                            id="account_holder"
+                            name="account_holder"
+                            class="form-control"
+                            :class="{'is-invalid': errors.has('account_holder')}"
+                            v-model="form.account_holder"
+                            v-validate
+                            data-vv-rules="required"
+                            :readonly="editData && editData.status !== 'pending'"
+                        >
+
+                        <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('account_holder', 'required')">
+                            <strong>{{ t('validation.required', {attribute: 'account_holder_name'}) }}</strong>
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 form-group">
+                        <label for="amount">{{ t('validation.attributes.amount') }} (USD)</label>
+                        <input
+                            type="text"
+                            id="amount"
+                            name="amount"
+                            class="form-control"
+                            :class="{'is-invalid': errors.has('amount')}"
+                            v-model="form.amount"
+                            v-validate
+                            data-vv-rules="required|regex:^[0-9]+(\.[0-9]+)?$"
+                            :readonly="editData && editData.status !== 'pending'"
+                        >
+
+                        <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('amount', 'required')">
+                            <strong>{{ t('validation.required', {attribute: 'amount'}) }}</strong>
+                        </span>
+
+                        <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('amount', 'regex')">
+                            <strong>{{ t('validation.regex', {attribute: 'amount'}) }}</strong>
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 form-group">
+                        <label for="bank_id">{{ t('validation.attributes.bank') }}</label>
+                        <select
+                            name="bank_id"
+                            id="bank_id"
+                            class="form-control"
+                            v-model="form.bank_id"
+                            :readonly="editData && editData.status !== 'pending'"
+                        >
+                            <option
+                                v-for="bank in banksAvailable"
+                                :key="bank.id"
+                                :value="bank.id">
+                                {{ bank.name }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 form-group">
+                        <label for="transaction_number">{{ t('validation.attributes.transaction_number') }}</label>
+                        <input
+                            type="text"
+                            id="transaction_number"
+                            name="transaction_number"
+                            class="form-control"
+                            :class="{'is-invalid': errors.has('transaction_number') || exists}"
+                            @keypress="exists = false"
+                            v-model="form.transaction_number"
+                            v-validate
+                            data-vv-rules=""
+                            :readonly="editData && editData.status !== 'pending'"
+                        >
+
+                        <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('transaction_number', 'required')">
+                            <strong>{{ t('validation.required', {attribute: 'transaction_number'}) }}</strong>
+                        </span>
+
+                        <span class="invalid-feedback" role="alert" v-if="exists">
+                            <strong>{{ t('validation.unique', {attribute: 'transaction_number'}) }}</strong>
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 form-group">
+                        <label for="customer_name">{{ t('validation.attributes.customer_name') }} Techland</label>
+                        <input
+                            type="text"
+                            id="customer_name"
+                            name="customer_name"
+                            class="form-control"
+                            :class="{'is-invalid': errors.has('customer_name')}"
+                            v-model="form.customer_name"
+                            v-validate
+                            data-vv-rules="required"
+                            :readonly="editData && editData.status !== 'pending'"
+                        >
+
+                        <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('customer_name', 'required')">
+                            <strong>{{ t('validation.required', {attribute: 'customer_name'}) }}</strong>
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 form-group">
+                        <label for="sales_order">{{ t('validation.attributes.sales_order_or_invoice') }}</label>
+                        <input
+                            type="text"
+                            id="sales_order"
+                            name="sales_order"
+                            class="form-control"
+                            :class="{'is-invalid': errors.has('sales_order')}"
+                            v-model="form.sales_order"
+                            v-validate
+                            data-vv-rules=""
+                            :readonly="editData && editData.status !== 'pending'"
+                        >
+
+                        <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('sales_order', 'required')">
+                            <strong>{{ t('validation.required', {attribute: 'sales_order_or_invoice'}) }}</strong>
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 form-group">
+                        <label for="payment_type">{{ t('validation.attributes.payment_type') }}</label>
+                        <select
+                            name="payment_type"
+                            id="payment_type"
+                            class="form-control"
+                            v-model="form.type"
+                            :readonly="editData && editData.status !== 'pending'"
+                        >
+                            <option
+                                v-for="(label, value) in paymentTypesAvailable"
+                                :value="value">
+                                {{ label }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 form-group">
+                        <label for="customer_comment">{{ t('validation.attributes.comments') }}</label>
+                        <textarea
+                            name="customer_comment"
+                            id="customer_comment"
+                            cols="30"
+                            rows="5"
+                            class="form-control"
+                            v-model="form.customer_comment"
+                            :readonly="editData"
+                        ></textarea>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 form-group">
                         <label>{{ t('validation.attributes.capture') }}</label>
                         <div class="capture" @click="openImageExplorer()">
                             <input type="file" id="capture" class="d-none" @change="changeImage">
@@ -202,7 +231,46 @@
                             <i v-else class="fa fa-camera"></i>
                         </div>
                     </div>
+
+                    <div class="col-sm-6 col-lg-3 form-group" v-if="editData">
+                        <label for="techland_comment">{{ t('validation.attributes.comments') }} (Techland)</label>
+                        <textarea
+                            name="techland_comment"
+                            id="techland_comment"
+                            cols="30"
+                            rows="5"
+                            class="form-control"
+                            v-model="form.techland_comment"
+                            :readonly="editData && editData.status !== 'pending'"
+                        ></textarea>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 form-group" v-if="editData">
+                        <label for="confirmation_number">{{ t('validation.attributes.confirmation_number') }}</label>
+                        <input
+                            type="text"
+                            id="confirmation_number"
+                            name="confirmation_number"
+                            class="form-control"
+                            :class="{'is-invalid': errors.has('confirmation_number', 'confirmation') || confirmationExists}"
+                            v-model="form.confirmation_number"
+                            @keypress="confirmationExists = false"
+                            v-validate
+                            data-vv-rules="required"
+                            :readonly="editData && editData.status !== 'pending'"
+                            data-vv-scope="confirmation"
+                        >
+
+                        <span class="invalid-feedback" role="alert" v-if="errors.firstByRule('confirmation_number', 'required', 'confirmation')">
+                            <strong>{{ t('validation.required', {attribute: 'confirmation_number'}) }}</strong>
+                        </span>
+
+                        <span class="invalid-feedback" role="alert" v-if="confirmationExists">
+                            <strong>{{ t('validation.unique', {attribute: 'confirmation_number'}) }}</strong>
+                        </span>
+                    </div>
                 </div>
+
             </div>
             <div class="card-footer" v-if="!editData || editData.status === 'pending'">
                 <button v-if="!loading && (! editData || editData.status === 'pending')" class="btn btn-success">
@@ -228,7 +296,7 @@
                             code: 'no'
                         }
                     ]"
-                    @confirmed="changeStatus($event, 'approved')"
+                    @confirmed="validateChangeStatus($event, 'approved')"
                 ></button-confirmation>
 
                 <button-confirmation
@@ -249,7 +317,7 @@
                             code: 'no'
                         }
                     ]"
-                    @confirmed="changeStatus($event, 'refused')"
+                    @confirmed="changeStatus($event, 'refused', null)"
                 ></button-confirmation>
 
                 <i v-if="loading" class="spinner-border spinner-border-sm"></i>
@@ -267,6 +335,10 @@
                 type: Array,
                 required: true
             },
+            paymentTypesAvailable: {
+                type: Object,
+                required: true
+            },
             user: {
                 type: Object|null,
                 required: true
@@ -279,7 +351,11 @@
 
         mounted() {
             if (this.editData) {
-                this.form = {...this.editData};
+                this.form = {
+                    ...this.editData
+                };
+
+                this.date = new Date(this.form.date);
             }
         },
 
@@ -288,8 +364,9 @@
                 date: new Date(),
                 loading: false,
                 exists: false,
+                confirmationExists: false,
                 form: {
-                    date: new Date(),
+                    date: null,
                     account_holder: null,
                     customer_number: null,
                     customer_name: null,
@@ -297,7 +374,11 @@
                     bank_id: this.banksAvailable[0].id,
                     transaction_number: null,
                     amount: null,
-                    capture: null
+                    capture: null,
+                    type: 'ach',
+                    customer_comment: null,
+                    techland_comment: null,
+                    confirmation_number: null
                 }
             }
         },
@@ -310,7 +391,14 @@
             checkIfPaymentExists() {
                 this.loading = true;
 
-                ApiService.post('/payment/exists', {transaction_number: this.form.transaction_number})
+                if (! this.form.transaction_number) {
+                    return this.sendForm();
+                }
+
+                ApiService.post('/payment/exists', {
+                    field: 'transaction_number',
+                    value: this.form.transaction_number
+                })
                     .then(res => {
                         if (!res.data.data || (this.editData && this.editData.uuid === res.data.data.uuid)) {
                             this.sendForm();
@@ -339,11 +427,39 @@
                 })
             },
 
-            changeStatus(code, status) {
+            validateChangeStatus(code, status) {
+                if (code === 'yes') {
+                    this.$validator.validateAll('confirmation').then(res => res && this.checkIfConfirmationExists(code, status));
+                }
+            },
+
+            checkIfConfirmationExists(code, status) {
+                this.loading = true;
+
+                ApiService.post('/payment/exists', {
+                    field: 'confirmation_number',
+                    value: this.form.confirmation_number
+                })
+                    .then(res => {
+                        if (!res.data.data) {
+                            this.changeStatus(code, status, this.form.confirmation_number);
+                        } else {
+                            this.confirmationExists = true;
+                            this.loading = false;
+                        }
+                    })
+                    .catch(err => {
+                        this.loading = false;
+                    })
+            },
+
+            changeStatus(code, status, confirmationNumber) {
                 if (code === 'yes') {
                     this.loading = true;
 
-                    ApiService.put('/payment/' + this.editData.uuid + '/change-status/' + status, {}).then(res => {
+                    ApiService.put('/payment/' + this.editData.uuid + '/change-status/' + status, {
+                        confirmation_number: confirmationNumber
+                    }).then(res => {
                         if (res.data.success) {
                             location.reload();
                         }
