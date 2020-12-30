@@ -126,9 +126,9 @@
                             <th>{{ t('validation.attributes.payment_date') }}</th>
                             <th>{{ t('validation.attributes.bank') }}</th>
                             <th>{{ t('validation.attributes.account_holder_name') }}</th>
-                            <th>{{ t('validation.attributes.customer_name') }}</th>
-                            <th class="text-center">{{ t('validation.attributes.sales_order') }}</th>
                             <th class="text-center">{{ t('validation.attributes.amount') }}</th>
+                            <th>{{ t('validation.attributes.customer_name') }}</th>
+                            <th class="text-center">{{ t('validation.attributes.sales_order_or_invoice') }}</th>
                             <th class="text-center" v-if="user.role === 'administrator'">{{ t('validation.attributes.status_changed_by') }}</th>
                             <th class="text-center">{{ t('validation.attributes.status') }}</th>
                             <th width="5%"></th>
@@ -139,9 +139,9 @@
                             <td>{{ result.date | date }}</td>
                             <td>{{ result.bank.name }}</td>
                             <td>{{ result.account_holder }}</td>
+                            <td class="text-center">{{ result.amount }}</td>
                             <td>{{ result.customer_name }}</td>
                             <td class="text-center">{{ result.sales_order }}</td>
-                            <td class="text-center">{{ result.amount }}</td>
                             <td class="text-center" v-if="user.role === 'administrator'">
                                 {{ result.status_changed_by ? result.status_changed_by.name : '' }}
                             </td>
