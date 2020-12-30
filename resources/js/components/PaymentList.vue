@@ -17,7 +17,7 @@
                     <tr>
                         <th>{{ t('validation.attributes.payment_date') }}</th>
                         <th>{{ t('validation.attributes.bank') }}</th>
-                        <th>{{ t('validation.attributes.account_holder') }}</th>
+                        <th>{{ t('validation.attributes.account_holder_name') }}</th>
                         <th>{{ t('validation.attributes.customer_name') }}</th>
                         <th class="text-center">{{ t('validation.attributes.sales_order') }}</th>
                         <th class="text-center">{{ t('validation.attributes.transaction_number') }}</th>

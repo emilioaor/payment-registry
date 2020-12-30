@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('translation', 'Controller@translations');
+Route::get('translation/{locale}', 'Controller@translations');
 
 Route::post('payment/exists', 'PaymentController@exists');
 Route::put('payment/{payment}/change-status/{status}', 'PaymentController@changeStatus');

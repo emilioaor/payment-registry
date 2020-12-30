@@ -89,7 +89,7 @@
                     </div>
 
                     <div class="col-sm-6 col-lg-4 form-group">
-                        <label for="account_holder">{{ t('validation.attributes.account_holder') }}</label>
+                        <label for="account_holder">{{ t('validation.attributes.account_holder_name') }}</label>
                         <input
                             type="text"
                             name="account_holder"
@@ -125,7 +125,7 @@
                         <tr>
                             <th>{{ t('validation.attributes.payment_date') }}</th>
                             <th>{{ t('validation.attributes.bank') }}</th>
-                            <th>{{ t('validation.attributes.account_holder') }}</th>
+                            <th>{{ t('validation.attributes.account_holder_name') }}</th>
                             <th>{{ t('validation.attributes.customer_name') }}</th>
                             <th class="text-center">{{ t('validation.attributes.sales_order') }}</th>
                             <th class="text-center">{{ t('validation.attributes.amount') }}</th>

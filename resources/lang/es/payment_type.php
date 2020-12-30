@@ -2,8 +2,8 @@
 
 return [
     'ach' => 'ACH',
-    'deposit' => 'Deposit',
+    'deposit' => 'Deposito',
     'check' => 'Cheque',
-    'transfer' => 'Transfer',
+    'transfer' => 'Transferencia',
     'paypal' => 'PayPal'
 ];

@@ -58,7 +58,9 @@ const TranslationPlugin = {
                             backend: false
                         };
 
-                        axios.get('/translation').then(res => {
+                        const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
+
+                        axios.get('/translation/' + lang).then(res => {
                             this.translations = res.data;
                             window.TranslationPlugin.translations = res.data;
                             window.TranslationPlugin.backend = true;

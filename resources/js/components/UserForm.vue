@@ -66,7 +66,7 @@
                             <option
                                 v-for="(role, value) in rolesAvailable"
                                 :value="value">
-                                {{ role }}
+                                {{ t('role.' + value) }}
                             </option>
                         </select>
                     </div>

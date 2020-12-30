@@ -142,6 +142,15 @@ body {
                 &:focus {
                     text-decoration: none;
                 }
+
+                img {
+                    padding: 0 .2rem;
+                    &.selected {
+                        background-color: rgba(255,255,255,.2);
+                        padding: .3rem;
+                        border-radius: 5px;
+                    }
+                }
             }
         }
 
@@ -166,7 +175,7 @@ body {
         .button-mobile {
             display: none;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .button-mobile {
                 display: block;
                 position: absolute;
@@ -200,7 +209,7 @@ body {
         background-color: rgb(51 66 74);
         border-radius: 0;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
 
 
         #menu-item {
@@ -233,7 +242,7 @@ body {
 
 .main-auth {
     margin-top: 5rem;
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
         margin-top: 4rem;
     }
 }

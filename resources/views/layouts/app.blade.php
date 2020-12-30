@@ -91,35 +91,35 @@
                         @include('layouts.menu', [
                             'menu' => [
                                 [
-                                    'label' => __('menu.payments'),
+                                    'label' => 'menu.payments',
                                     'active' => $currentController === \App\Http\Controllers\PaymentController::class,
                                     'children' => [
                                         [
                                             'route' => route('payment.create'),
-                                            'label' => __('menu.add_new')
+                                            'label' => 'menu.add_new'
                                         ],
                                         [
                                             'route' => route('payment.index'),
-                                            'label' => __('menu.list')
+                                            'label' => 'menu.list'
                                         ],
                                         [
                                             'route' => route('payment.report'),
-                                            'label' => __('menu.report')
+                                            'label' => 'menu.report'
                                         ]
                                     ]
                                 ],
                                 [
-                                    'label' => __('menu.users'),
+                                    'label' => 'menu.users',
                                     'active' => $currentController === \App\Http\Controllers\UserController::class,
                                     'show' => Auth::user()->isAdmin(),
                                     'children' => [
                                         [
                                             'route' => route('user.create'),
-                                            'label' => __('menu.add_new')
+                                            'label' => 'menu.add_new'
                                         ],
                                         [
                                             'route' => route('user.index'),
-                                            'label' => __('menu.list')
+                                            'label' => 'menu.list'
                                         ]
                                     ]
                                 ]

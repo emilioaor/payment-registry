@@ -22,7 +22,7 @@
             v-if="typeof item.show === 'undefined' || item.show"
         >
             <a href="" @click.prevent="openDropDown(i)">
-                {{ item.label }}
+                {{ t(item.label) }}
 
                 <i v-if="menuLoading === i" class="spinner-border spinner-border-sm ml-3"></i>
                 <i v-else-if="dropVisible === i" class="fa fa-caret-up ml-3"></i>
@@ -33,7 +33,7 @@
                 <div class="menu-item" v-for="child in item.children">
                     <a :href="child.route" @click="loading(i)">
                         <i class="fa fa-caret-right"></i>
-                        {{ child.label }}
+                        {{ t(child.label) }}
                     </a>
                 </div>
             </div>
@@ -64,6 +64,18 @@
                 </div>
             </div>
         </div>
+
+        <!-- Language -->
+        <div class="menu-item menu-mobile" :class="{'show-mobile': showMobile}">
+
+            <a href="" @click.prevent="">
+                <i v-if="menuLoading === 'lang'" class="spinner-border spinner-border-sm"></i>
+                <template v-else>
+                    <img src="/images/en.png" :class="{selected: lang === 'en'}" @click="changeLanguage('en')" >
+                    <img src="/images/es.png" :class="{selected: lang === 'es'}" @click="changeLanguage('es')" >
+                </template>
+            </a>
+        </div>
     </div>
 </template>
 
@@ -81,11 +93,16 @@
             }
         },
 
+        mounted() {
+            this.lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
+        },
+
         data() {
             return {
                 dropVisible: null,
                 menuLoading: null,
-                showMobile: false
+                showMobile: false,
+                lang: null
             }
         },
 
@@ -119,6 +136,14 @@
             logout() {
                 this.loading('session');
                 document.getElementById('logout-form').submit();
+            },
+
+            changeLanguage(lang) {
+                if (this.lang !== lang) {
+                    this.menuLoading = 'lang';
+                    localStorage.setItem('lang', lang);
+                    location.reload();
+                }
             }
         }
     }

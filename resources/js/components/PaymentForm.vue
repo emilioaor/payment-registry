@@ -200,7 +200,7 @@
                             <option
                                 v-for="(label, value) in paymentTypesAvailable"
                                 :value="value">
-                                {{ label }}
+                                {{ t('payment_type.' + value) }}
                             </option>
                         </select>
                     </div>
