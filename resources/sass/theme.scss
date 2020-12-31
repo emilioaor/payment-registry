@@ -246,3 +246,73 @@ body {
         margin-top: 4rem;
     }
 }
+
+.print-only {
+    display: none;
+}
+
+@media print {
+    @page  {
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    .alert {
+        display: none;
+    }
+    .print-only {
+        display: unset;
+    }
+    .no-print {
+        display: none;
+    }
+
+    #menu-header {
+        display: none;
+    }
+
+    .techland-form {
+        color: #000000 !important;
+        font-size: 20px;
+
+        .card {
+            border: none;
+
+            .card-header {
+                display: none;
+            }
+
+            .card-body {
+                .logo {
+                    max-width: 300px;
+                    margin-bottom: 50px;
+                }
+
+                .form-control {
+                    color: #000000 !important;
+                    font-size: 20px;
+
+                    &.is-invalid {
+                        border-color: #ced4da;
+                    }
+                }
+
+                .invalid-feedback {
+                    display: none;
+                }
+
+                .status {
+                    color: #000000 !important;
+                }
+
+                .capture {
+                    max-height: 350px;
+                }
+            }
+
+            .card-footer {
+                display: none;
+            }
+        }
+    }
+}

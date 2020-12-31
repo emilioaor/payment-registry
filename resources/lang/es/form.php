@@ -15,5 +15,6 @@ return [
     'yes' => 'Si',
     'no' => 'No',
     'report' => 'Reporte',
-    'all' => 'Todos'
+    'all' => 'Todos',
+    'print' => 'Imprimir'
 ];

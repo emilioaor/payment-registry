@@ -10,14 +10,14 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}?version=1.1.0&token=kdleoirjdhsbcnxbss" defer></script>
+    <script src="{{ asset('js/app.js') }}?version=1.2.0&token=ldkgirjducnvmfjyetd" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}?version=1.1.0&token=proglcvmnchhdgwbzgrwz" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}?version=1.2.0&token=odiekfjssydhfnchteyxe" rel="stylesheet">
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('images/cropped-logo-blanco-32x32.png') }}" sizes="32x32">
@@ -30,7 +30,7 @@
             <!-- Navbar -->
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                     <div class="container">
-                        <a class="navbar-brand" href="{{ Auth::guest() ? route('payment.create') : url('/') }}">
+                        <a class="navbar-brand" href="{{ Auth::guest() ? route('payment.create') : route('payment.index') }}">
                             <img class="logo" src="{{ asset('images/logo.png') }}" alt="{{ config('app.name', 'Laravel') }}">
                         </a>
                         {{--  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

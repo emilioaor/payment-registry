@@ -11,6 +11,11 @@
             </div>
             <div class="card-body">
                 <div class="row" v-if="editData">
+
+                    <div class="col-12 text-right print-only">
+                        <img class="logo" src="/images/logo.jpeg" alt="">
+                    </div>
+
                     <div class="col-sm-6 col-lg-3 form-group">
                         <label>{{ t('validation.attributes.created_at') }}:</label>
                         {{ editData.created_at | date }}
@@ -19,7 +24,7 @@
                     <div class="col-sm-6 col-lg-3 form-group">
                         <label>{{ t('validation.attributes.status') }}:</label>
                         <span
-                            class="text-white p-2 rounded"
+                            class="text-white p-2 rounded status"
                             :class="{
                                     'bg-info': this.editData.status === 'pending',
                                     'bg-success': this.editData.status === 'approved',
@@ -218,7 +223,7 @@
                         ></textarea>
                     </div>
 
-                    <div class="col-sm-6 col-lg-3 form-group">
+                    <div class="col-sm-6 col-lg-3 form-group no-print">
                         <label>{{ t('validation.attributes.capture') }}</label>
                         <div class="capture" @click="openImageExplorer()">
                             <input type="file" id="capture" class="d-none" @change="changeImage">
@@ -268,6 +273,16 @@
                         <span class="invalid-feedback" role="alert" v-if="confirmationExists">
                             <strong>{{ t('validation.unique', {attribute: 'confirmation_number'}) }}</strong>
                         </span>
+                    </div>
+
+                    <div class="col-12 form-group print-only" v-if="editData && form.capture">
+                        <label>{{ t('validation.attributes.capture') }}</label>
+                        <div class="capture" @click="openImageExplorer()">
+                            <img
+                                :src="'/storage/' + form.capture"
+                                :alt="t('validation.attributes.capture')"
+                            >
+                        </div>
                     </div>
                 </div>
 
@@ -319,6 +334,11 @@
                     ]"
                     @confirmed="changeStatus($event, 'refused', null)"
                 ></button-confirmation>
+
+                <button type="button" v-if="!loading && editData" class="btn btn-info text-white" @click="print()">
+                    <i class="fa fa-print"></i>
+                    {{ t('form.print') }}
+                </button>
 
                 <i v-if="loading" class="spinner-border spinner-border-sm"></i>
             </div>
@@ -496,6 +516,10 @@
 
                 reader.readAsDataURL(file);
             },
+
+            print() {
+                window.print();
+            }
         }
     }
 </script>
