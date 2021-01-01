@@ -28,7 +28,7 @@
     <div id="app">
         @guest
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm techland-menu">
                     <div class="container">
                         <a class="navbar-brand" href="{{ Auth::guest() ? route('payment.create') : route('payment.index') }}">
                             <img class="logo" src="{{ asset('images/logo.png') }}" alt="{{ config('app.name', 'Laravel') }}">
@@ -47,6 +47,10 @@
                             <ul class="navbar-nav ml-auto">
                                 <!-- Authentication Links -->
                                 @guest
+                                    <li class="nav-item">
+                                        <img class="pointer" src="{{ asset('images/en.png') }}" onclick="changeLanguage('en')">
+                                        <img class="pointer ml-2" src="{{ asset('images/es.png') }}" onclick="changeLanguage('es')">
+                                    </li>
                                     {{--<li class="nav-item">
                                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                     </li>

@@ -6,6 +6,10 @@ body {
     background-color: #f6f6f6;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .date-picker[readonly] {
     background-color: #ffffff;
 }

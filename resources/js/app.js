@@ -27,6 +27,13 @@ Vue.component('date-picker', require('vuejs-datepicker'));
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+window.changeLanguage = (locale) => {
+    if (localStorage.getItem('lang') !== locale) {
+        localStorage.setItem('lang', locale);
+        location.reload();
+    }
+}
+
 import TranslationPlugin from './plugins/TranslationPlugin'
 import VeeValidate from 'vee-validate';
 
