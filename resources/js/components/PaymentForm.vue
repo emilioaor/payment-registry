@@ -332,7 +332,7 @@
                             code: 'no'
                         }
                     ]"
-                    @confirmed="changeStatus($event, 'refused', null)"
+                    @confirmed="changeStatus($event, 'refused')"
                 ></button-confirmation>
 
                 <button type="button" v-if="!loading && editData" class="btn btn-info text-white" @click="print()">
@@ -468,7 +468,7 @@
                 })
                     .then(res => {
                         if (!res.data.data) {
-                            this.changeStatus(code, status, this.form.confirmation_number);
+                            this.changeStatus(code, status);
                         } else {
                             this.confirmationExists = true;
                             this.loading = false;
@@ -479,13 +479,11 @@
                     })
             },
 
-            changeStatus(code, status, confirmationNumber) {
+            changeStatus(code, status) {
                 if (code === 'yes') {
                     this.loading = true;
 
-                    ApiService.put('/payment/' + this.editData.uuid + '/change-status/' + status, {
-                        confirmation_number: confirmationNumber
-                    }).then(res => {
+                    ApiService.put('/payment/' + this.editData.uuid + '/change-status/' + status, this.form).then(res => {
                         if (res.data.success) {
                             location.reload();
                         }

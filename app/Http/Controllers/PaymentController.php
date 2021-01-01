@@ -146,8 +146,8 @@ class PaymentController extends Controller
     public function changeStatus(Request $request, $id, $status)
     {
         $payment = Payment::query()->uuid($id)->firstOrFail();
+        $payment->fill($request->all());
         $payment->status = $status;
-        $payment->confirmation_number = $request->confirmation_number;
         $payment->status_changed_by = Auth::user()->id;
         $payment->save();
 
