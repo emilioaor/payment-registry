@@ -25,6 +25,8 @@ Route::post('payment/exists', 'PaymentController@exists');
 Route::put('payment/{payment}/change-status/{status}', 'PaymentController@changeStatus');
 Route::get('payment/report', 'PaymentController@report')->name('payment.report');
 Route::post('payment/report', 'PaymentController@reportProcess');
+Route::get('payment/{payment}/pdf', 'PaymentController@pdf');
+Route::post('payment/{payment}/email/{lang}', 'PaymentController@sendEmail');
 Route::resource('payment', 'PaymentController');
 
 Route::post('user/exists', 'UserController@exists')->middleware('admin');

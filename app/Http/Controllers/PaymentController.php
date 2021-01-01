@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Bank;
+use App\Mail\PaymentMail;
 use App\Payment;
 use App\Service\AlertService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -176,5 +179,39 @@ class PaymentController extends Controller
         $payments = Payment::query()->report($request->all())->get();
 
         return response()->json(['success' => true, 'data' => $payments]);
+    }
+
+    /**
+     * Payment in PDF
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function pdf($id)
+    {
+        $payment = Payment::query()->uuid($id)->firstOrFail();
+        $pdf = \PDF::loadView('payment.pdf', compact('payment'))->setPaper('letter');
+
+        return $pdf->stream();
+    }
+
+    /**
+     * Send email
+     *
+     * @param int $id
+     * @param $lang
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sendEmail($id, $lang, Request $request)
+    {
+        App::setLocale($lang);
+        $payment = Payment::query()->uuid($id)->firstOrFail();
+
+        Mail::to($request->emails)->send(new PaymentMail($payment));
+
+        AlertService::alertSuccess(__('alert.processSuccessfully'));
+
+        return response()->json(['success' => true]);
     }
 }

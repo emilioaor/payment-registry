@@ -340,6 +340,12 @@
                     {{ t('form.print') }}
                 </button>
 
+                <payment-list-email
+                    v-if="!loading && editData"
+                    :title="t('form.send_by_email')"
+                    :edit-data="editData"
+                ></payment-list-email>
+
                 <i v-if="loading" class="spinner-border spinner-border-sm"></i>
             </div>
         </div>

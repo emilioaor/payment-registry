@@ -16,5 +16,8 @@ return [
     'no' => 'No',
     'report' => 'Report',
     'all' => 'All',
-    'print' => 'Print'
+    'print' => 'Print',
+    'send_by_email' => 'Send by email',
+    'send' => 'Send',
+    'close' => 'Close'
 ];

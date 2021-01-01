@@ -16,5 +16,8 @@ return [
     'no' => 'No',
     'report' => 'Reporte',
     'all' => 'Todos',
-    'print' => 'Imprimir'
+    'print' => 'Imprimir',
+    'send_by_email' => 'Enviar por correo',
+    'send' => 'Enviar',
+    'close' => 'Cerrar'
 ];
