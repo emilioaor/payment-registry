@@ -401,7 +401,7 @@
                     transaction_number: null,
                     amount: null,
                     capture: null,
-                    type: 'ach',
+                    type: 'transfer',
                     customer_comment: null,
                     techland_comment: null,
                     confirmation_number: null

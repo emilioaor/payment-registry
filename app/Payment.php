@@ -23,10 +23,10 @@ class Payment extends Model
     const STATUS_APPROVED = 'approved';
 
     /** Types */
-    const TYPE_ACH = 'ach';
-    const TYPE_DEPOSIT = 'deposit';
-    const TYPE_CHECK = 'check';
     const TYPE_TRANSFER = 'transfer';
+    const TYPE_ACH = 'ach';
+    const TYPE_DEPOSIT_IN_CHECK = 'deposit_in_check';
+    const TYPE_CHECK_MAILING = 'check_mailing';
     const TYPE_PAYPAL = 'paypal';
 
     protected $table = 'payments';
@@ -104,11 +104,11 @@ class Payment extends Model
     public static function paymentTypesAvailable(): array
     {
         return [
-            self::TYPE_ACH => __('payment_type.' . self::TYPE_ACH),
-            self::TYPE_CHECK => __('payment_type.' . self::TYPE_CHECK),
-            self::TYPE_DEPOSIT => __('payment_type.' . self::TYPE_DEPOSIT),
             self::TYPE_TRANSFER => __('payment_type.' . self::TYPE_TRANSFER),
-            self::TYPE_PAYPAL => __('payment_type.' . self::TYPE_PAYPAL)
+            self::TYPE_ACH => __('payment_type.' . self::TYPE_ACH),
+            self::TYPE_DEPOSIT_IN_CHECK => __('payment_type.' . self::TYPE_DEPOSIT_IN_CHECK),
+            self::TYPE_CHECK_MAILING => __('payment_type.' . self::TYPE_CHECK_MAILING),
+            self::TYPE_PAYPAL => __('payment_type.' . self::TYPE_PAYPAL),
         ];
     }
 

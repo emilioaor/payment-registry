@@ -2,8 +2,8 @@
 
 return [
     'ach' => 'ACH',
-    'deposit' => 'Deposito',
-    'check' => 'Cheque',
+    'deposit_in_check' => 'Deposito en cheque',
+    'check_mailing' => 'Envío de cheque',
     'transfer' => 'Transferencia',
     'paypal' => 'PayPal'
 ];
