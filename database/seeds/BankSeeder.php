@@ -16,7 +16,7 @@ class BankSeeder extends Seeder
         $bank->save();
 
         $bank = new \App\Bank();
-        $bank->name = 'Synovuz';
+        $bank->name = 'Synovus';
         $bank->save();
     }
 }

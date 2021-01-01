@@ -52,7 +52,8 @@ class Payment extends Model
         'account_holder',
         'customer_name',
         'sales_order',
-        'transaction_number'
+        'transaction_number',
+        'banks.name'
     ];
 
     public function __construct(array $attributes = [])
@@ -192,5 +193,20 @@ class Payment extends Model
         }
 
         return $query;
+    }
+
+    /**
+     * Scope search
+     *
+     * @param Builder $query
+     * @param string|null $search
+     * @return Builder
+     * @throws \Exception
+     */
+    public function scopeSearch(Builder $query, ?string $search): Builder
+    {
+        $query->select(['payments.*'])->join('banks', 'banks.id', '=', 'payments.bank_id');
+
+        return $this->_search($query, $search);
     }
 }
