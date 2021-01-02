@@ -18,6 +18,13 @@ class UserSeeder extends Seeder
         $user->role = \App\User::ROLE_ADMIN;
         $user->save();
 
+        $user = new \App\User();
+        $user->name = 'Jose Luis Zreik';
+        $user->email = 'jlzreik@yezzcorp.com';
+        $user->password = bcrypt('123456');
+        $user->role = \App\User::ROLE_ADMIN;
+        $user->save();
+
         if (config('app.env') === 'local') {
             $user = new \App\User();
             $user->name = 'Test Finances';

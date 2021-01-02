@@ -120,7 +120,8 @@
                             id="bank_id"
                             class="form-control"
                             v-model="form.bank_id"
-                            :readonly="editData && editData.status !== 'pending'"
+                            :disabled="editData && editData.status !== 'pending'"
+                            @change="changeBank()"
                         >
                             <option
                                 v-for="bank in banksAvailable"
@@ -200,7 +201,7 @@
                             id="payment_type"
                             class="form-control"
                             v-model="form.type"
-                            :readonly="editData && editData.status !== 'pending'"
+                            :disabled="(editData && editData.status !== 'pending') || (bankSelected && bankSelected.payment_type)"
                         >
                             <option
                                 v-for="(label, value) in paymentTypesAvailable"
@@ -381,6 +382,8 @@
         },
 
         mounted() {
+            this.changeBank();
+
             if (this.editData) {
                 this.form = {
                     ...this.editData
@@ -397,6 +400,7 @@
                 exists: false,
                 confirmationExists: false,
                 techlandCommentError: false,
+                bankSelected: null,
                 form: {
                     date: null,
                     account_holder: null,
@@ -536,6 +540,14 @@
 
             print() {
                 window.print();
+            },
+
+            changeBank() {
+                this.bankSelected = this.banksAvailable.find(b => b.id === this.form.bank_id);
+
+                if (this.bankSelected.payment_type) {
+                    this.form.type = this.bankSelected.payment_type;
+                }
             }
         },
 

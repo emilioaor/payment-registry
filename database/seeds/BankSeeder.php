@@ -18,5 +18,10 @@ class BankSeeder extends Seeder
         $bank = new \App\Bank();
         $bank->name = 'Synovus';
         $bank->save();
+
+        $bank = new \App\Bank();
+        $bank->name = 'PayPal';
+        $bank->payment_type = \App\Payment::TYPE_PAYPAL;
+        $bank->save();
     }
 }

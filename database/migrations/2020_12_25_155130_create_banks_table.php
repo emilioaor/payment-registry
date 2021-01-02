@@ -17,6 +17,7 @@ class CreateBanksTable extends Migration
             $table->id();
             $table->string('uuid', 15)->unique();
             $table->string('name');
+            $table->enum('payment_type', ['ach', 'deposit', 'check', 'transfer', 'paypal'])->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
