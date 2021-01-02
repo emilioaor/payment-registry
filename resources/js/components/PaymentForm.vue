@@ -245,9 +245,14 @@
                             cols="30"
                             rows="5"
                             class="form-control"
+                            :class="{'is-invalid': techlandCommentError}"
                             v-model="form.techland_comment"
                             :readonly="editData && editData.status !== 'pending'"
                         ></textarea>
+
+                        <span class="invalid-feedback" role="alert" v-if="techlandCommentError">
+                            <strong>{{ t('validation.required', {attribute: 'comment'}) }}</strong>
+                        </span>
                     </div>
 
                     <div class="col-sm-6 col-lg-3 form-group" v-if="editData">
@@ -391,6 +396,7 @@
                 loading: false,
                 exists: false,
                 confirmationExists: false,
+                techlandCommentError: false,
                 form: {
                     date: null,
                     account_holder: null,
@@ -481,6 +487,13 @@
 
             changeStatus(code, status) {
                 if (code === 'yes') {
+
+                    if (status === 'refused' && ! this.form.techland_comment) {
+                        this.techlandCommentError = true;
+
+                        return;
+                    }
+
                     this.loading = true;
 
                     ApiService.put('/payment/' + this.editData.uuid + '/change-status/' + status, this.form).then(res => {
@@ -523,6 +536,12 @@
 
             print() {
                 window.print();
+            }
+        },
+
+        watch: {
+            "form.techland_comment"(value, old) {
+                this.techlandCommentError = false;
             }
         }
     }
