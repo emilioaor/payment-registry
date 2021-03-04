@@ -123,6 +123,27 @@
                     {{ t('form.save') }}
                 </button>
 
+                <button-confirmation
+                    :label="t('form.delete')"
+                    btn-class="btn btn-danger"
+                    icon-class="fa fa-trash"
+                    v-if="!loading && editData"
+                    :confirmation="t('form.areYouSure')"
+                    :buttons="[
+                        {
+                            label: t('form.yes'),
+                            btnClass: 'btn btn-danger',
+                            code: 'yes'
+                        },
+                        {
+                            label: t('form.no'),
+                            btnClass: 'btn btn-secondary',
+                            code: 'no'
+                        }
+                    ]"
+                    @confirmed="deleteUser($event)"
+                ></button-confirmation>
+
                 <i v-if="loading" class="spinner-border spinner-border-sm"></i>
             </div>
         </div>
@@ -199,6 +220,22 @@
                 }).catch(err => {
                     this.loading = false;
                 })
+            },
+
+            deleteUser(code) {
+                if (code === 'yes') {
+                    this.loading = true;
+
+                    ApiService.delete('/user/' + this.editData.uuid).then(res => {
+
+                        if (res.data.success) {
+                            location.href = res.data.redirect;
+                        }
+
+                    }).catch(err => {
+                        this.loading = false;
+                    })
+                }
             }
         },
 
