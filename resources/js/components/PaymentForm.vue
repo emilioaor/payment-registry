@@ -205,6 +205,7 @@
                         >
                             <option
                                 v-for="(label, value) in paymentTypesAvailable"
+                                :key="value"
                                 :value="value">
                                 {{ t('payment_type.' + value) }}
                             </option>
