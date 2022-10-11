@@ -21,6 +21,8 @@ Auth::routes();
 
 Route::get('translation/{locale}', 'Controller@translations');
 
+Route::get('payment/bank', 'PaymentController@banks')->name('payment.banks');
+Route::post('payment/bank', 'PaymentController@storeBank');
 Route::post('payment/exists', 'PaymentController@exists');
 Route::put('payment/{payment}/change-status/{status}', 'PaymentController@changeStatus');
 Route::get('payment/report', 'PaymentController@report')->name('payment.report');

@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}?version=1.3.0&token=plskfmysatdgxbzfyw" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}?version=1.4.0&token=wodkfibxgdygsjf" rel="stylesheet">
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('images/cropped-logo-blanco-32x32.png') }}" sizes="32x32">
@@ -109,6 +109,10 @@
                                         [
                                             'route' => route('payment.report'),
                                             'label' => 'menu.report'
+                                        ],
+                                        [
+                                            'route' => route('payment.banks'),
+                                            'label' => 'menu.banks'
                                         ]
                                     ]
                                 ],

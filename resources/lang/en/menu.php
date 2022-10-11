@@ -8,4 +8,5 @@ return [
     'add_new' => 'Add new',
     'list' => 'List',
     'report' => 'Report',
+    'banks' => 'Banks'
 ];

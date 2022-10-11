@@ -214,4 +214,32 @@ class PaymentController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    /**
+     * List banks
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function banks()
+    {
+        $banks = Bank::all();
+
+        return view('payment.banks', compact('banks'));
+    }
+
+    /**
+     * Store bank
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function storeBank(Request $request)
+    {
+        $bank = new Bank($request->all());
+        $bank->save();
+
+        AlertService::alertSuccess(__('alert.processSuccessfully'));
+
+        return response()->json(['success' => true]);
+    }
 }
