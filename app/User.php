@@ -22,6 +22,7 @@ class User extends Authenticatable
     const ROLE_ADMIN = 'administrator';
     const ROLE_MANAGER = 'manager';
     const ROLE_FINANCES = 'finances';
+    const ROLE_EXECUTIVE = 'executive';
 
     /**
      * The attributes that are mass assignable.
@@ -87,6 +88,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Is manager?
+     *
+     * @return bool
+     */
+    public function isExecutive(): bool
+    {
+        return $this->isAdmin() || $this->role === self::ROLE_EXECUTIVE;
+    }
+
+    /**
      * Status changed payment
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -107,6 +118,7 @@ class User extends Authenticatable
             self::ROLE_ADMIN => __(sprintf('role.%s', self::ROLE_ADMIN)),
             self::ROLE_MANAGER => __(sprintf('role.%s', self::ROLE_MANAGER)),
             self::ROLE_FINANCES => __(sprintf('role.%s', self::ROLE_FINANCES)),
+            self::ROLE_EXECUTIVE => __(sprintf('role.%s', self::ROLE_EXECUTIVE)),
         ];
     }
 

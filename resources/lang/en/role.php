@@ -3,5 +3,6 @@
 return [
     'administrator' => 'Administrator',
     'manager' => 'Manager',
-    'finances' => 'Finances'
+    'finances' => 'Finances',
+    'executive' => 'Executive'
 ];

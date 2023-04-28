@@ -30,7 +30,7 @@
             </a>
 
             <div class="menu-drop d-flex" :class="{visible: dropVisible === i}">
-                <div class="menu-item" v-for="child in item.children">
+                <div class="menu-item" v-for="child in item.children" v-if="typeof child.show === 'undefined' || child.show">
                     <a :href="child.route" @click="loading(i)">
                         <i class="fa fa-caret-right"></i>
                         {{ t(child.label) }}

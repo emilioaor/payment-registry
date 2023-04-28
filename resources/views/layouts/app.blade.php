@@ -100,7 +100,8 @@
                                     'children' => [
                                         [
                                             'route' => route('payment.create'),
-                                            'label' => 'menu.add_new'
+                                            'label' => 'menu.add_new',
+                                            'show' => Auth::user()->isAdmin() || Auth::user()->isManager() || Auth::user()->isFinances()
                                         ],
                                         [
                                             'route' => route('payment.index'),
@@ -112,7 +113,8 @@
                                         ],
                                         [
                                             'route' => route('payment.banks'),
-                                            'label' => 'menu.banks'
+                                            'label' => 'menu.banks',
+                                            'show' => Auth::user()->isAdmin() || Auth::user()->isManager() || Auth::user()->isFinances()
                                         ]
                                     ]
                                 ],
