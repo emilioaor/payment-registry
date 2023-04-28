@@ -132,6 +132,17 @@ class UserController extends Controller
     }
 
     /**
+     * Me
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function me(Request $request)
+    {
+        return response()->json(['success' => true, 'data' => Auth::user()]);
+    }
+
+    /**
      * Configuration
      *
      * @return \Illuminate\Http\Response

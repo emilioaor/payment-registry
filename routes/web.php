@@ -31,6 +31,7 @@ Route::get('payment/{payment}/pdf', 'PaymentController@pdf');
 Route::post('payment/{payment}/email/{lang}', 'PaymentController@sendEmail');
 Route::resource('payment', 'PaymentController');
 
+Route::get('user/me', 'UserController@me')->middleware('auth');
 Route::post('user/exists', 'UserController@exists')->middleware('admin');
 Route::get('user/config', 'UserController@config')->name('user.config')->middleware('auth');
 Route::put('user/config', 'UserController@updateConfig')->name('user.updateConfig')->middleware('auth');

@@ -143,5 +143,27 @@
             @yield('content')
         </main>
     </div>
+
+    <script>
+        function checkSession() {
+            if (location.pathname === '/login') {
+                return;
+            }
+
+            axios.get('/user/me')
+                .then(res => {
+                    
+                })
+                .catch(err => {
+                    console.error(err);
+                    if (err.response.status === 401) {
+                        location.href = '/'
+                    }
+                })
+            ;
+        }
+
+        window.setInterval(checkSession, 60000);
+    </script>
 </body>
 </html>
