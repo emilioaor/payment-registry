@@ -294,7 +294,7 @@
                 </div>
 
             </div>
-            <div class="card-footer" v-if="['administrator', 'manager', 'finances'].includes(user.role)">
+            <div class="card-footer" v-if="! user || ['administrator', 'manager', 'finances'].includes(user.role)">
                 <button v-if="!loading && (! editData || editData.status === 'pending')" class="btn btn-success">
                     <i class="fa fa-save"></i>
                     {{ t('form.save') }}
